@@ -82,6 +82,7 @@ class SceneGame extends egret.DisplayObjectContainer{
             this.peoples[answer].addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
                 // this.pCir.visible = true;
                 // console.log("點對")
+                // console.log("2342342")
                 EventManager.pub('sendMessage',{state:'find',answer:GameData.loverID})
             },this)
         })

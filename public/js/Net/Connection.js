@@ -17,6 +17,12 @@
 					self.start();
 					console.log("连接成功")
 				});
+ 			 ws.on('10011',function(data){				
+				if(data.code == 0)
+					console.log("准备请求成功")
+				else
+					console.log("准备请求失败")
+				});
 				ws.on('10023',function(oData){
 					if(oData.code == 0){
 						console.log('游戏开始~')
@@ -29,7 +35,18 @@
 					EventManager.pub("startClock",oData.time);//开启倒计时
 					EventManager.pub('produceMap',oData.mapInfo);//生成地图
 					EventManager.pub('isLover',oData.answer);//记录情侣位置
-				})
+				});
+				ws.on('10053',function(oData){
+						if(oData.code == 100){
+							//扣時間 校準時間 根據ID顯示提示
+							
+							console.log('答錯，返回100')
+						}else if(oData.code == 0){
+							//根据ID显示提示 显示红色圆圈
+							console.log('答對，返回0')
+							EventManager.pub('openRedCir')
+						}
+				});
 				ws.on('10063',function(oData){
 					console.log('返回进入下一关');
 					//执行分开动画 倒计时 进入下一关
@@ -37,27 +54,16 @@
 					// EventManager.pub('produceMap',oData.mapInfo);//生成地图
 					// EventManager.pub('isLover',oData.answer);//记录情侣位置
 				})
+				ws.on('disconnect',function(){
+					//调用关闭游戏API 
+					alert('网络连接已断开，请重新登录~');
+				})
 				EventManager.sub('sendMessage',(oData)=>{
 					switch(oData.state){
-						case 'ready': ws.on('10011',function(data){				
-														if(data.code == 0)
-															console.log("准备请求成功")
-														else
-															console.log("准备请求失败")})
-													ws.emit(10010,{id : GameData.nId,roomid : GameData.roomId})
+						case 'ready':ws.emit(10010,{id : GameData.nId,roomid : GameData.roomId})
 									 				break;
-						case 'find': ws.on('10053',function(oData){
-														if(oData.code == 100){
-															//扣時間 校準時間 根據ID顯示提示
-															console.log('答錯，返回100')
-														}else if(oData.code == 0){
-															//根据ID显示提示 显示红色圆圈
-															console.log('答對，返回0')
-															EventManager.pub('openRedCir')
-														}
-												})
-												ws.emit(10050,{id :  GameData.nId,answer: oData.answer});
-												break;
+						case 'find':ws.emit(10050,{id :  GameData.nId,answer: oData.answer});
+												  break;
 					}
 				})
 			} else {
