@@ -93,7 +93,7 @@ io.on("connection", function(socket) {
           code: 0,
           data: {
             timeLeft: roomInfo.gameData.timeLeft,
-            level:userInfo.gameData.level
+            level:roomInfo.gameData.level
           }
         });
       }
