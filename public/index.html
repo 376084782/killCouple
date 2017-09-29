@@ -1,62 +1,95 @@
+<!DOCTYPE HTML>
 <html>
+<head>
+    <meta charset="utf-8">
+    <title>Egret</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: transparent;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
 
-<head>222222</head>
-<style>
-  .demo {
-    width: 40px;
-    height: 60px;
-    position: absolute;
-  }
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
+    <!--modules_files_start-->
+	<script egret="lib" src="libs/modules/egret/egret.js" src-release="libs/modules/egret/egret.min.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.js" src-release="libs/modules/egret/egret.web.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
+	<!--modules_files_end-->
 
-  .wrap {
-    width: 500px;
-    height: 300px;
-    border: 1px solid grey;
-    position: absolute;
-    top: 200px;
-    left: 200px;
-  }
-</style>
+    <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
+    <!--other_libs_files_start-->
+    <script src="http://lib.baomitu.com/socket.io/2.0.3/socket.io.slim.js"></script>
+    <script egret="lib" src="polyfill/promise.js" src-release="polyfill/promise.min.js"></script>
+    <script egret="lib" src="js/EventManager/EventManager.js"></script>
+    <script egret="lib" src="js/Net/Connection.js"></script>
+    
+    <!--other_libs_files_end-->
 
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
+    <!--game_files_start-->
+	<script egret="game" src="bin-debug/components/game/People.js"></script>
+	<script egret="game" src="bin-debug/components/common/Bitmap.js"></script>
+	<script egret="game" src="bin-debug/components/common/Button.js"></script>
+	<script egret="game" src="bin-debug/components/common/ImageLoader.js"></script>
+	<script egret="game" src="bin-debug/components/common/LoadingLayer.js"></script>
+	<script egret="game" src="bin-debug/components/common/Mask.js"></script>
+	<script egret="game" src="bin-debug/components/common/Modal.js"></script>
+	<script egret="game" src="bin-debug/components/common/ModalLayer.js"></script>
+	<script egret="game" src="bin-debug/components/common/TextField.js"></script>
+	<script egret="game" src="bin-debug/components/game/Clock.js"></script>
+	<script egret="game" src="bin-debug/components/game/FindTip.js"></script>
+	<script egret="game" src="bin-debug/components/game/KillTip.js"></script>
+	<script egret="game" src="bin-debug/components/common/BitmapText.js"></script>
+	<script egret="game" src="bin-debug/components/game/TimeTip.js"></script>
+	<script egret="game" src="bin-debug/components/hall/ScoreBar.js"></script>
+	<script egret="game" src="bin-debug/components/over/RankBar.js"></script>
+	<script egret="game" src="bin-debug/components/over/TitleBar.js"></script>
+	<script egret="game" src="bin-debug/LoadingUI.js"></script>
+	<script egret="game" src="bin-debug/Main.js"></script>
+	<script egret="game" src="bin-debug/manager/GameData.js"></script>
+	<script egret="game" src="bin-debug/manager/UIManager.js"></script>
+	<script egret="game" src="bin-debug/scene/SceneGame.js"></script>
+	<script egret="game" src="bin-debug/scene/SceneHall.js"></script>
+	<script egret="game" src="bin-debug/scene/SceneOver.js"></script>
+	<!--game_files_end-->
+</head>
 <body>
-  <button onclick="connect()">connect</button>
-  <button onclick="ready()">ready</button>
-  <button onclick="fAnswer(true)">answer true</button>
-  <button onclick="fAnswer(false)">answer false</button>
-  <button onclick="fNext()">to next</button>
-  <button onclick="getTime()">getTime</button>
-  <div class="wrap">
-  </div>
-  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="http://lib.baomitu.com/socket.io/2.0.3/socket.io.slim.js"></script>
-  <script>
-    var socket = io('http://localhost');
-    var answer = 0;
-    var myId = Math.floor(1000 * Math.random());
-    socket.on('10033', function (data) {
-      answer = data.answer;
-      console.log('answer:', answer)
-    });
-    function fAnswer(type) {
-      let ans = type ? answer : 9000;
-      socket.emit(10050, { id: myId, answer: ans })
-    }
-    function fNext() {
-      socket.emit(10070, {})
-    }
-    function connect() {
-      socket.emit(10000, { id: myId, roomid: 1 })
-    }
 
-    function ready() {
-      socket.emit(10010, { id: myId, roomid: 1 })
-    }
-
-    function getTime() {
-      socket.emit(11000, {})
-    }
-
-  </script>
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="auto"
+         data-scale-mode="showAll"
+         data-frame-rate="30"
+         data-content-width="710"
+         data-content-height="426"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="false" data-show-log="false"
+         data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
+    </div>
+    <script>
+        /**
+         * {
+         * "renderMode":, //引擎渲染模式，"canvas" 或者 "webgl"
+         * "audioType": 0 //使用的音频类型，0:默认，1:qq audio，2:web audio，3:audio
+         * "antialias": //WebGL模式下是否开启抗锯齿，true:开启，false:关闭，默认为false
+         * "retina": //是否基于devicePixelRatio缩放画布
+         * }
+         **/
+        egret.runEgret({renderMode:"webgl", audioType:0});
+    </script>
 </body>
-
 </html>
