@@ -10,7 +10,7 @@ var TimeTip = (function (_super) {
     __extends(TimeTip, _super);
     function TimeTip() {
         var _this = _super.call(this) || this;
-        _this.tCopy = ["点错会减少5秒哦", "对方点错，减少5秒！", "你点错了，减少5秒！"];
+        _this.tCopy = ["点错会减少5秒哦", "对友点错，减少5秒！", "你点错了，减少5秒！"];
         _this.tBg = new Bitmap({
             source: 'public_bgk_png',
             width: 126,

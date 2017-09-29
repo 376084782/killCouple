@@ -16,23 +16,17 @@ var Modal = (function (_super) {
         _this.addChild(_this.bgMask);
         _this.bgMask.x = -(UImanager.container.width - _this.width) / 2;
         _this.bgMask.y = -(UImanager.container.height - _this.height) / 2;
-        _this.modalBg = new Bitmap({
-            source: 'pub_frame_bg_png',
-            width: width,
-            height: height,
-        });
+        _this.modalBg = new egret.Shape();
+        _this.modalBg.graphics.beginFill(0xfff5a5, 1);
+        _this.modalBg.graphics.drawRect(0, 0, width, height);
+        _this.modalBg.graphics.endFill();
         _this.addChild(_this.modalBg);
-        _this.modalCloseBtn = new Bitmap({
-            source: 'pub_close_png',
-            x: width - 30,
-            y: 5,
+        _this.cirBg = new Bitmap({
+            source: 'pic_djs_bg_png',
         });
-        _this.modalCloseBtn.touchEnabled = true;
-        _this.addChild(_this.modalCloseBtn);
-        _this.modalCloseBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            console.log('关闭model');
-            EventManager.pub('modal/onModalClose');
-        }, _this);
+        _this.cirBg.x = (width - _this.cirBg.width) / 2;
+        _this.cirBg.y = (height - _this.cirBg.height) / 2;
+        _this.addChild(_this.cirBg);
         return _this;
     }
     return Modal;

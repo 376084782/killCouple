@@ -1,8 +1,8 @@
 
 class Modal extends egret.DisplayObjectContainer{
     private bgMask : Mask;
-    private modalBg : Bitmap;
-    private modalCloseBtn : Bitmap;
+    private modalBg : egret.Shape;
+    private cirBg : Bitmap;
 
     constructor(width, height){
         super();
@@ -15,22 +15,17 @@ class Modal extends egret.DisplayObjectContainer{
         this.bgMask.x = - (UImanager.container.width - this.width)/2;
         this.bgMask.y = - (UImanager.container.height - this.height)/2;
 
-        this.modalBg = new Bitmap({
-            source: 'pub_frame_bg_png',
-            width: width,
-            height: height,            
-        }) 
+        this.modalBg = new egret.Shape();
+        this.modalBg.graphics.beginFill(0xfff5a5,1);
+        this.modalBg.graphics.drawRect(0,0,width,height);
+        this.modalBg.graphics.endFill();
         this.addChild(this.modalBg);
-        this.modalCloseBtn = new Bitmap({
-            source: 'pub_close_png',
-            x: width - 30,
-            y: 5,
-        });
-        this.modalCloseBtn.touchEnabled = true;
-        this.addChild(this.modalCloseBtn);
-        this.modalCloseBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            console.log('关闭model');
-            EventManager.pub('modal/onModalClose');
-        }, this);
+
+        this.cirBg = new Bitmap({
+            source: 'pic_djs_bg_png',       
+        }) 
+        this.cirBg.x = (width - this.cirBg.width)/2;
+        this.cirBg.y = (height - this.cirBg.height)/2;
+        this.addChild(this.cirBg);
     }
 };
