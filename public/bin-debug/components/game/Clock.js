@@ -29,6 +29,13 @@ var Clock = (function (_super) {
         });
         return _this;
     }
+    Object.defineProperty(Clock.prototype, "time", {
+        set: function (val) {
+            this.allTime = val;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Clock.prototype.start = function () {
         this.cTime.repeatCount = GameData.countDown;
         // this.allTime = GameData.countDown;

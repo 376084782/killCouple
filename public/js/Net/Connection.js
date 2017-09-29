@@ -39,16 +39,20 @@
 				ws.on('10053',function(oData){
 						if(oData.code == 100){
 							//扣時間 校準時間 根據ID顯示提示
-							
+							 EventManager.pub('findFalse',oData.data);
 							console.log('答錯，返回100')
 						}else if(oData.code == 0){
-							//根据ID显示提示 显示红色圆圈
+							//根据ID显示提示 显示红色圆圈  关闭触控区
 							console.log('答對，返回0')
+							EventManager.pub('findTrue',oData.data);
 							EventManager.pub('openRedCir')
 						}
 				});
 				ws.on('10063',function(oData){
-					console.log('返回进入下一关');
+					//停止时间、进入动画
+					console.log('进入动画');
+					EventManager.pub('stopTime');
+					EventManager.pub('showAnimation');
 					//执行分开动画 倒计时 进入下一关
 					// EventManager.pub("startClock",oData.time);//重置倒计时
 					// EventManager.pub('produceMap',oData.mapInfo);//生成地图
@@ -83,7 +87,7 @@
 				else
 				 	console.log("发送房间失败")
 			})
-			id = Math.random()* 10;
+			id = Math.floor(Math.random()* 1000);
 			GameData.nId = id;
 			GameData.roomId = 1;
 			ws.emit(10000,{id : GameData.nId,roomid : GameData.roomId});

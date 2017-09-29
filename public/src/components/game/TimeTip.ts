@@ -1,7 +1,7 @@
 class TimeTip extends egret.DisplayObjectContainer{
 		private tBg : Bitmap;
 		private tCont : TextField;
-        private tCopy : string[] = ["点错会减少5秒哦","对方点错，减少5秒！","你点错了，减少5秒！"];
+        private tCopy : string[] = ["点错会减少5秒哦","对友点错，减少5秒！","你点错了，减少5秒！"];
 		public set cont (val : string){
 			this.tCont.text = val;
 		}

@@ -1,8 +1,11 @@
 class Clock extends egret.Sprite{
-    private cTime : egret.Timer;
+    public cTime : egret.Timer;
     private cText : BitmapText;
     private allTime : number = 120;
 
+    public set time(val : number){
+        this.allTime = val;
+    }
     constructor(){
         super();
 

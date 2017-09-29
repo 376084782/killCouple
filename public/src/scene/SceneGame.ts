@@ -90,5 +90,32 @@ class SceneGame extends egret.DisplayObjectContainer{
         EventManager.sub('openRedCir',()=>{
             this.pCir.visible = true;
         })
+
+        EventManager.sub('findFalse',(data)=>{
+            //更新提示
+            if(data.answerId == GameData.nId){
+                //是自己答错
+                this.timeTip.cont = GameData.tCopy[2];
+            }else {
+                //对方答错
+                this.timeTip.cont = GameData.tCopy[1];
+            }
+            //校准时间
+            this.gClock.time = data.timeLeft;
+        })
+        EventManager.sub('findTrue',(data)=>{
+            if(data.answerId == GameData.nId){
+                //是自己答对
+                this.findTip.cont = GameData.fCopy[1];
+            }else {
+                //对方答对
+                this.findTip.cont = GameData.fCopy[2];
+            }
+        })
+
+        EventManager.sub('stopTime',()=>{
+            this.gClock.cTime.stop();
+        })
+
     }
 }

@@ -32,7 +32,7 @@ class UIManager {
 
   // 初始化弹层场景 ,index 50
   private currentModal: any;
-
+  private animationModal : any;
   // private modalSysError: ModalSysError;
   // private modalHelp: ModalHelp;
   // private modalTip: ModalTip;

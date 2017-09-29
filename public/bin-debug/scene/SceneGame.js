@@ -76,6 +76,32 @@ var SceneGame = (function (_super) {
         EventManager.sub('openRedCir', function () {
             _this.pCir.visible = true;
         });
+        EventManager.sub('findFalse', function (data) {
+            //更新提示
+            if (data.answerId == GameData.nId) {
+                //是自己答错
+                _this.timeTip.cont = GameData.tCopy[2];
+            }
+            else {
+                //对方答错
+                _this.timeTip.cont = GameData.tCopy[1];
+            }
+            //校准时间
+            _this.gClock.time = data.timeLeft;
+        });
+        EventManager.sub('findTrue', function (data) {
+            if (data.answerId == GameData.nId) {
+                //是自己答对
+                _this.findTip.cont = GameData.fCopy[1];
+            }
+            else {
+                //对方答对
+                _this.findTip.cont = GameData.fCopy[2];
+            }
+        });
+        EventManager.sub('stopTime', function () {
+            _this.gClock.cTime.stop();
+        });
         return _this;
     }
     return SceneGame;
