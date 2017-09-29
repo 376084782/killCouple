@@ -76,6 +76,7 @@ io.on("connection", function(socket) {
         code: 100,
         message: "答错，扣时间",
         data: {
+          answerId:roomInfo.gameData.lastAnswerId,
           timeReduced: roomInfo.gameData.missReduce,
           timeLeft: roomInfo.gameData.timeLeft
         }
@@ -83,14 +84,16 @@ io.on("connection", function(socket) {
     } else {
       broadcast(PROTOCOL.RESPFIND, {
         code: 0,
-        answer: roomInfo.gameData.answer
+        answer: roomInfo.gameData.answer,
+        answerId:roomInfo.gameData.lastAnswerId
       });
       if (type == 1) {
         // 广播进入下一关
         broadcast(PROTOCOL.RESPTONEXT, {
           code: 0,
           data: {
-            timeLeft: roomInfo.gameData.timeLeft
+            timeLeft: roomInfo.gameData.timeLeft,
+            level:userInfo.gameData.level
           }
         });
       }

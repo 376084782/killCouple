@@ -81,8 +81,10 @@ function createGameData() {
     timeLeft: 0,
     stopping: false, //计时器开关控制器
     missReduce,
+    lastAnswerId: 0,
     finishCallback() {},
     sendAnswer(id, answer) {
+      this.lastAnswerId = id;
       // return -1错误 0一个正确 1两个正确，下一关
       if (this.answer == answer) {
         // 找对了
