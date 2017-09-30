@@ -1,4 +1,4 @@
-const missReduce = 1;
+const missReduce = 10;
 const gameTime = 120;
 
 module.exports = {
@@ -72,7 +72,7 @@ function createGameData() {
   let gameInfo = {
     mapInfo: {},
     answer: null,
-    level: 0,
+    level: 1,
     startTime: 0,
     timeReduced: 0,
     timeTotal: 120,
@@ -91,6 +91,7 @@ function createGameData() {
         this.findedList.push(id);
         if (this.findedList.length == 2) {
           // 关闭时钟，等待进入下一关
+          this.level++;
           this.stopping = true;
           return 1;
         }
@@ -102,7 +103,7 @@ function createGameData() {
       }
     },
     start() {
-      this.level = 0;
+      this.level = 1;
       this.randomMap();
       this.startTime = new Date().getSeconds();
       this.timeReduced = 0;
@@ -115,8 +116,8 @@ function createGameData() {
         if (!this.stopping) {
           this.timeLeft--;
           if (this.timeLeft <= 0) {
+            this.finishGame();
             this.clearClock();
-            this.finishCallback();
           }
         }
       }, 1000);
@@ -127,9 +128,13 @@ function createGameData() {
     },
     finishGame() {
       this.finishCallback();
+      this.status = 0;
+      this.timeReduced = 0;
+      this.timeTotal = gameTime;
+      this.timeLeft = gameTime;
+      this.level = 1;
     },
     randomMap() {
-      this.level++;
       this.mapInfo = getData(this.level);
       this.answer = Math.floor(this.mapInfo.length * Math.random());
       this.stopping = false;
