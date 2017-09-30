@@ -15,44 +15,55 @@ var SceneHall = (function (_super) {
     function SceneHall() {
         var _this = _super.call(this) || this;
         _this.bg = new egret.Bitmap(RES.getRes('public_bg_png'));
-        _this.addChild(_this.bg);
-        _this.hScore = new ScoreBar(0);
-        _this.hScore.x = 60;
-        _this.hScore.y = 6;
-        _this.addChild(_this.hScore);
+        _this.init();
+        _this.fListen();
+        return _this;
+    }
+    SceneHall.prototype.init = function () {
+        var _this = this;
+        this && this.removeChildren();
+        this.addChild(this.bg);
+        this.hScore = new ScoreBar(0);
+        this.hScore.x = 60;
+        this.hScore.y = 6;
+        this.addChild(this.hScore);
         //測試
-        _this.hScore.score = '123456';
-        _this.hRank = new ScoreBar(1);
-        _this.hRank.x = 390;
-        _this.hRank.y = 6;
-        _this.addChild(_this.hRank);
-        _this.hLogo = new Bitmap({
+        this.hScore.score = '123456';
+        this.hRank = new ScoreBar(1);
+        this.hRank.x = 390;
+        this.hRank.y = 6;
+        this.addChild(this.hRank);
+        this.hLogo = new Bitmap({
             source: 'pic_logo_png',
             width: 526,
             height: 240,
             y: 60,
         });
-        _this.hLogo.x = (UIConfig.stageW - _this.hLogo.width) / 2;
-        _this.addChild(_this.hLogo);
-        _this.hDes = new Bitmap({
+        this.hLogo.x = (UIConfig.stageW - this.hLogo.width) / 2;
+        this.addChild(this.hLogo);
+        this.hDes = new Bitmap({
             source: 'text_lszql_png',
             y: 305,
         });
-        _this.hDes.x = (UIConfig.stageW - _this.hDes.width) / 2;
-        _this.addChild(_this.hDes);
-        _this.hBtn = new Button(0, 0);
-        _this.hBtn.y = 342;
-        _this.hBtn.x = (UIConfig.stageW - _this.hBtn.width) / 2;
-        _this.addChild(_this.hBtn);
-        _this.hBtn.touchEnabled = true;
-        _this.hBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+        this.hDes.x = (UIConfig.stageW - this.hDes.width) / 2;
+        this.addChild(this.hDes);
+        this.hBtn = new Button(0, 0);
+        this.hBtn.y = 342;
+        this.hBtn.x = (UIConfig.stageW - this.hBtn.width) / 2;
+        this.addChild(this.hBtn);
+        this.hBtn.touchEnabled = true;
+        this.hBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             if (_this.hBtn.Bg == "btn_public_n_png")
                 EventManager.pub('sendMessage', { state: 'ready', nId: GameData.nId, roomId: GameData.roomId }); //玩家準備
             _this.hBtn.Bg = 'btn_public_p_png';
             _this.hBtn.Type = 'btn_pic_dadf_png';
-        }, _this);
-        return _this;
-    }
+        }, this);
+    };
+    SceneHall.prototype.fListen = function () {
+    };
+    SceneHall.prototype.onLeave = function () {
+        this.init();
+    };
     return SceneHall;
 }(egret.DisplayObjectContainer));
 __reflect(SceneHall.prototype, "SceneHall");

@@ -14,6 +14,13 @@ class SceneHall extends egret.DisplayObjectContainer{
 
     constructor(){
 			super();
+			this.init();
+			this.fListen();
+    }
+
+	init(){
+			this && this.removeChildren();
+			
 			this.addChild(this.bg)
       
 			this.hScore = new ScoreBar(0);
@@ -58,6 +65,13 @@ class SceneHall extends egret.DisplayObjectContainer{
 				this.hBtn.Type = 'btn_pic_dadf_png';
 			},this)
 
-			
-    }
+	}
+
+	fListen(){
+
+	}
+
+  onLeave() {
+	  this.init();
+  }
 }
