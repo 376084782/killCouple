@@ -123,6 +123,9 @@ class SceneGame extends egret.DisplayObjectContainer{
         EventManager.sub('stopTime',()=>{
             this.gClock.cTime.stop();
         })
+        EventManager.sub('storeLevel',(level)=>{
+            GameData.gameLevel = level;
+        })
 
     }
 
@@ -130,6 +133,9 @@ class SceneGame extends egret.DisplayObjectContainer{
         this.peoples= [];
          this.folkMap && this.folkMap.removeChildren();
          this.touchLayer.touchEnabled = true;
+         this.findTip.cont = GameData.fCopy[0];
+         this.timeTip.cont = GameData.tCopy[0];
+
     }
 
 

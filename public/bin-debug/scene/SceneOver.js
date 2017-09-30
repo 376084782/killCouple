@@ -45,8 +45,11 @@ var SceneOver = (function (_super) {
         _this.hBtn.touchEnabled = true;
         _this.hBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             if (_this.hBtn.Type == "btn_pic_hdsy_png")
-                EventManager.pub(""); //回到首頁
+                UImanager.to('hall'); //回到首頁
         }, _this);
+        EventManager.sub('showLevel', function () {
+            _this.oTitle.score = "\u4F60\u548C" + GameData.teamMateName + "\u642D\u6863\u5728120\u79D2\u5171\u8BA1\u5E72\u6389\u4E86" + GameData.gameLevel + "\u5BF9\u60C5\u4FA3";
+        });
         return _this;
     }
     return SceneOver;

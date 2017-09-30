@@ -55,10 +55,12 @@ class SceneOver extends egret.DisplayObjectContainer{
 			this.hBtn.touchEnabled = true;
 			this.hBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
 				if(this.hBtn.Type == "btn_pic_hdsy_png")
-					EventManager.pub("") //回到首頁
+					UImanager.to('hall') //回到首頁
 			},this)
 
-            
+            EventManager.sub('showLevel',()=>{
+				this.oTitle.score = `你和${GameData.teamMateName}搭档在120秒共计干掉了${GameData.gameLevel}对情侣`;
+			})
 			
     }
 }
