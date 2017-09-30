@@ -40,6 +40,7 @@
 					if(oData.code == 0){
 						console.log('游戏结束')
 						//调游戏结束页面
+						EventManager.pub('storeLevel',oData.level)
 						UImanager.to('over');
 					}
 				});

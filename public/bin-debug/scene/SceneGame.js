@@ -108,12 +108,17 @@ var SceneGame = (function (_super) {
         EventManager.sub('stopTime', function () {
             _this.gClock.cTime.stop();
         });
+        EventManager.sub('storeLevel', function (level) {
+            GameData.gameLevel = level;
+        });
         return _this;
     }
     SceneGame.prototype.resetAll = function () {
         this.peoples = [];
         this.folkMap && this.folkMap.removeChildren();
         this.touchLayer.touchEnabled = true;
+        this.findTip.cont = GameData.fCopy[0];
+        this.timeTip.cont = GameData.tCopy[0];
     };
     return SceneGame;
 }(egret.DisplayObjectContainer));

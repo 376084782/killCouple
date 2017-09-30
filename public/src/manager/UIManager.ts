@@ -223,6 +223,7 @@ class UIManager {
       case 'over': {
         this.sceneOver = this.sceneOver || new SceneOver();
         this.add(this.sceneOver)
+        EventManager.pub('showLevel')
         break;
       }
     }
