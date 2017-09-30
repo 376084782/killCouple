@@ -62,7 +62,8 @@ io.on("connection", function(socket) {
       broadcast(PROTOCOL.RESPGAMEINFO, {
         time: roomInfo.gameData.timeLeft,
         mapInfo: roomInfo.gameData.mapInfo,
-        answer: roomInfo.gameData.answer
+        answer: roomInfo.gameData.answer,
+        level:roomInfo.gameData.level
       });
     }
   });
@@ -113,7 +114,8 @@ io.on("connection", function(socket) {
         broadcast(PROTOCOL.RESPGAMEINFO, {
           time: roomInfo.gameData.timeLeft,
           mapInfo: roomInfo.gameData.mapInfo,
-          answer: roomInfo.gameData.answer
+          answer: roomInfo.gameData.answer,
+          level:roomInfo.gameData.level
         });
       }
     } else {
