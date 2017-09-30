@@ -44,19 +44,19 @@
 						}else if(oData.code == 0){
 							//根据ID显示提示 显示红色圆圈  关闭触控区
 							console.log('答對，返回0')
-							EventManager.pub('findTrue',oData.data);
-							EventManager.pub('openRedCir')
+							EventManager.pub('findTrue',oData);
 						}
 				});
 				ws.on('10063',function(oData){
-					//停止时间、进入动画
+					//停止时间、进入动画、倒计时
 					console.log('进入动画');
 					EventManager.pub('stopTime');
-					EventManager.pub('showAnimation');
-					//执行分开动画 倒计时 进入下一关
-					// EventManager.pub("startClock",oData.time);//重置倒计时
-					// EventManager.pub('produceMap',oData.mapInfo);//生成地图
-					// EventManager.pub('isLover',oData.answer);//记录情侣位置
+					EventManager.pub('modal/onShowModal', 0);
+				});
+				ws.on('10071',function(oData){
+					console.log('进入下一关')
+					//关闭modal 打开触控区
+					EventManager.pub('modal/onModalClose');
 				})
 				ws.on('disconnect',function(){
 					//调用关闭游戏API 
@@ -67,6 +67,8 @@
 						case 'ready':ws.emit(10010,{id : GameData.nId,roomid : GameData.roomId})
 									 				break;
 						case 'find':ws.emit(10050,{id :  GameData.nId,answer: oData.answer});
+												  break;
+						case 'next':ws.emit(10070,{id :  GameData.nId,roomid : GameData.roomId});
 												  break;
 					}
 				})

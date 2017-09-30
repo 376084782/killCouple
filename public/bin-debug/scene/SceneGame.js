@@ -51,6 +51,8 @@ var SceneGame = (function (_super) {
             source: 'pic_sdk_png',
         });
         EventManager.sub('produceMap', function (mapInfo) {
+            //初始化地图
+            _this.resetAll();
             for (var i = 0; i < mapInfo.length; i++) {
                 var tempXY = mapInfo[i].split(',');
                 _this.peoples[i] = new People();
@@ -93,6 +95,10 @@ var SceneGame = (function (_super) {
             if (data.answerId == GameData.nId) {
                 //是自己答对
                 _this.findTip.cont = GameData.fCopy[1];
+                EventManager.pub('openRedCir');
+                //关闭触控
+                _this.touchLayer.touchEnabled = false;
+                _this.peoples[GameData.loverID].touchEnabled = false;
             }
             else {
                 //对方答对
@@ -104,6 +110,11 @@ var SceneGame = (function (_super) {
         });
         return _this;
     }
+    SceneGame.prototype.resetAll = function () {
+        this.peoples = [];
+        this.folkMap && this.folkMap.removeChildren();
+        this.touchLayer.touchEnabled = true;
+    };
     return SceneGame;
 }(egret.DisplayObjectContainer));
 __reflect(SceneGame.prototype, "SceneGame");
