@@ -133,6 +133,7 @@ function createGameData() {
       this.mapInfo = getData(this.level);
       this.answer = Math.floor(this.mapInfo.length * Math.random());
       this.stopping = false;
+      this.findedList = [];
     }
   };
   return gameInfo;
