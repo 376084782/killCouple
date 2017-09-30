@@ -1,4 +1,4 @@
-const missReduce = 10;
+const missReduce = 1;
 const gameTime = 120;
 
 module.exports = {

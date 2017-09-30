@@ -36,6 +36,13 @@
 					EventManager.pub('produceMap',oData.mapInfo);//生成地图
 					EventManager.pub('isLover',oData.answer);//记录情侣位置
 				});
+				ws.on('10043',function(oData){
+					if(oData.code == 0){
+						console.log('游戏结束')
+						//调游戏结束页面
+						UImanager.to('over');
+					}
+				});
 				ws.on('10053',function(oData){
 						if(oData.code == 100){
 							//扣時間 校準時間 根據ID顯示提示
