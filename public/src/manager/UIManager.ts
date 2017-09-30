@@ -32,7 +32,7 @@ class UIManager {
 
   // 初始化弹层场景 ,index 50
   private currentModal: any;
-  private animationModal : any;
+  private animationModal : AnimationModal;
   // private modalSysError: ModalSysError;
   // private modalHelp: ModalHelp;
   // private modalTip: ModalTip;
@@ -176,7 +176,8 @@ class UIManager {
     let modal: ModalLayer;
     switch (type) {
       case 0: {
-
+        this.animationModal = this.animationModal || new AnimationModal();
+        modal = this.animationModal;
         break;
       }
       case 1: {
@@ -199,6 +200,7 @@ class UIManager {
     if (modal) {
       this.currentModal = modal;
       this.container.addChildAt(modal, 50);
+      EventManager.pub("startCT");
     } else {
       console.warn('modal类型未定义')
     }

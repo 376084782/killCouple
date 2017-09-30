@@ -29,7 +29,7 @@ class Clock extends egret.Sprite{
             this.stop();    
         }); 
     }
-    public start() {
+    private start() {
         this.cTime.repeatCount = GameData.countDown;
         // this.allTime = GameData.countDown;
         this.cText.text = this.transFormat(this.allTime);

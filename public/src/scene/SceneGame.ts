@@ -61,6 +61,9 @@ class SceneGame extends egret.DisplayObjectContainer{
         })
 
         EventManager.sub('produceMap',(mapInfo)=>{
+            //初始化地图
+            this.resetAll();
+
             for(var i =0 ; i <mapInfo.length; i++){
                 var tempXY = mapInfo[i].split(',');
                 this.peoples[i] = new People();
@@ -107,6 +110,10 @@ class SceneGame extends egret.DisplayObjectContainer{
             if(data.answerId == GameData.nId){
                 //是自己答对
                 this.findTip.cont = GameData.fCopy[1];
+                EventManager.pub('openRedCir')
+                //关闭触控
+                this.touchLayer.touchEnabled = false;
+                this.peoples[GameData.loverID].touchEnabled = false;
             }else {
                 //对方答对
                 this.findTip.cont = GameData.fCopy[2];
@@ -118,4 +125,12 @@ class SceneGame extends egret.DisplayObjectContainer{
         })
 
     }
+
+    private resetAll(){
+        this.peoples= [];
+         this.folkMap && this.folkMap.removeChildren();
+         this.touchLayer.touchEnabled = true;
+    }
+
+
 }

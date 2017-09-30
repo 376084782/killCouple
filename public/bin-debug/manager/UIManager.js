@@ -187,6 +187,8 @@ var UIManager = (function () {
         var modal;
         switch (type) {
             case 0: {
+                this.animationModal = this.animationModal || new AnimationModal();
+                modal = this.animationModal;
                 break;
             }
             case 1: {
@@ -206,6 +208,7 @@ var UIManager = (function () {
         if (modal) {
             this.currentModal = modal;
             this.container.addChildAt(modal, 50);
+            EventManager.pub("startCT");
         }
         else {
             console.warn('modal类型未定义');
