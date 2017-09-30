@@ -116,8 +116,8 @@ function createGameData() {
         if (!this.stopping) {
           this.timeLeft--;
           if (this.timeLeft <= 0) {
+            this.finishGame();
             this.clearClock();
-            this.finishCallback();
           }
         }
       }, 1000);
@@ -128,6 +128,11 @@ function createGameData() {
     },
     finishGame() {
       this.finishCallback();
+      this.status = 0;
+      this.timeReduced = 0;
+      this.timeTotal = gameTime;
+      this.timeLeft = gameTime;
+      this.level = 1;
     },
     randomMap() {
       this.mapInfo = getData(this.level);

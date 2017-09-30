@@ -142,7 +142,7 @@ io.on("connection", function(socket) {
   });
 
   function sendFinish() {
-    console.log(roomInfo.gameData.level-1)
+    roomInfo.status = 0;
     broadcast(PROTOCOL.RESPGAMEFINISHED, {
       code: 0,
       level: roomInfo.gameData.level - 1,
