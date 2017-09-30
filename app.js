@@ -7,7 +7,7 @@ var PROTOCOL = require("./service/protocol");
 app.listen(80);
 
 function handler(req, res) {
-  fs.readFile(__dirname + "/public/index.html", function(err, data) {
+  fs.readFile(__dirname + "/public/test.html", function(err, data) {
     if (err) {
       res.writeHead(500);
       return res.end("Error loading index.html");
@@ -76,7 +76,7 @@ io.on("connection", function(socket) {
         code: 100,
         message: "答错，扣时间",
         data: {
-          answerId:roomInfo.gameData.lastAnswerId,
+          answerId: roomInfo.gameData.lastAnswerId,
           timeReduced: roomInfo.gameData.missReduce,
           timeLeft: roomInfo.gameData.timeLeft
         }
@@ -85,7 +85,7 @@ io.on("connection", function(socket) {
       broadcast(PROTOCOL.RESPFIND, {
         code: 0,
         answer: roomInfo.gameData.answer,
-        answerId:roomInfo.gameData.lastAnswerId
+        answerId: roomInfo.gameData.lastAnswerId
       });
       if (type == 1) {
         // 广播进入下一关
@@ -93,7 +93,7 @@ io.on("connection", function(socket) {
           code: 0,
           data: {
             timeLeft: roomInfo.gameData.timeLeft,
-            level:roomInfo.gameData.level
+            level: roomInfo.gameData.level
           }
         });
       }
@@ -144,7 +144,7 @@ io.on("connection", function(socket) {
   function sendFinish() {
     broadcast(PROTOCOL.RESPGAMEFINISHED, {
       code: 0,
-      level: roomInfo.gameData.level,
+      level: roomInfo.gameData.level - 1,
       reduced: roomInfo.gameData.timeReduced
     });
   }

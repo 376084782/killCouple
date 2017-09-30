@@ -91,6 +91,7 @@ function createGameData() {
         this.findedList.push(id);
         if (this.findedList.length == 2) {
           // 关闭时钟，等待进入下一关
+          this.level++;
           this.stopping = true;
           return 1;
         }
@@ -129,7 +130,6 @@ function createGameData() {
       this.finishCallback();
     },
     randomMap() {
-      this.level++;
       this.mapInfo = getData(this.level);
       this.answer = Math.floor(this.mapInfo.length * Math.random());
       this.stopping = false;
