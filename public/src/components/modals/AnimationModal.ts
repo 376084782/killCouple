@@ -1,8 +1,8 @@
 class AnimationModal extends ModalLayer{
     private aniTimer : egret.Timer;
-    private pBoy : Bitmap;
-    private pGirl : Bitmap;
-    private ct321 : Array<Bitmap> = [];
+    public pBoy : Bitmap;
+    public pGirl : Bitmap;
+    public ct321 : Array<Bitmap> = [];
     private ctCount : number ;
 
     constructor(){
@@ -45,34 +45,46 @@ class AnimationModal extends ModalLayer{
 
         EventManager.sub("startCT",()=>{
             this.start();
+            let boy = this.pBoy;
+            let girl = this.pGirl;
+
+            //开始动画
+            egret.Tween.get(boy).to({ x: boy.x + GameData.offX }, 2000, egret.Ease.sineIn);
+            egret.Tween.get(girl).to({ x: girl.x - GameData.offX }, 2000, egret.Ease.sineIn);
         });  
 
     }
 
 
     private start() {
-        this.aniTimer.repeatCount = 3;
+        // this.aniTimer.repeatCount = 3;
         this.ctCount = GameData.ctTime;
         this.aniTimer.addEventListener(egret.TimerEvent.TIMER, this.subTime, this);
         this.aniTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timeOver, this);
         this.aniTimer.reset();
         this.aniTimer.start();
+
   }
     private subTime() {
-        if (this.ctCount == 0) {
-        return;
-        }
+        // if (this.ctCount == 0) {
+        // return;
+        // }
         this.ctCount -= 1;
-        for(var i = 0; i <3; i++){
-            if(i == this.ctCount){
-                this.ct321[i].visible = true;
-            }else {
-                this.ct321[i].visible = false;
+            if(this.ctCount == 2){
+                this.ct321[1].visible = true;
+                this.ct321[0].visible = false;
+                this.ct321[2].visible = false;
+            }else if(this.ctCount == 1){
+                this.ct321[1].visible = false;
+                this.ct321[0].visible = true;
+                this.ct321[2].visible = false;
             }
-        }
     }
     private timeOver(){
+        console.log("???")
         EventManager.pub('sendMessage',{state:'next'})
     }
+
+    
 
 }

@@ -50,6 +50,9 @@ var SceneGame = (function (_super) {
         _this.pCir = new Bitmap({
             source: 'pic_sdk_png',
         });
+        EventManager.sub('currentOff', function (level) {
+            _this.killTip.level = level;
+        });
         EventManager.sub('produceMap', function (mapInfo) {
             //初始化地图
             _this.resetAll();

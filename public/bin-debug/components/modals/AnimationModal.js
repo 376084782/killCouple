@@ -43,11 +43,16 @@ var AnimationModal = (function (_super) {
         _this.aniTimer = new egret.Timer(1000, GameData.ctTime);
         EventManager.sub("startCT", function () {
             _this.start();
+            var boy = _this.pBoy;
+            var girl = _this.pGirl;
+            //开始动画
+            egret.Tween.get(boy).to({ x: boy.x + GameData.offX }, 2000, egret.Ease.sineIn);
+            egret.Tween.get(girl).to({ x: girl.x - GameData.offX }, 2000, egret.Ease.sineIn);
         });
         return _this;
     }
     AnimationModal.prototype.start = function () {
-        this.aniTimer.repeatCount = 3;
+        // this.aniTimer.repeatCount = 3;
         this.ctCount = GameData.ctTime;
         this.aniTimer.addEventListener(egret.TimerEvent.TIMER, this.subTime, this);
         this.aniTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timeOver, this);
@@ -55,20 +60,23 @@ var AnimationModal = (function (_super) {
         this.aniTimer.start();
     };
     AnimationModal.prototype.subTime = function () {
-        if (this.ctCount == 0) {
-            return;
-        }
+        // if (this.ctCount == 0) {
+        // return;
+        // }
         this.ctCount -= 1;
-        for (var i = 0; i < 3; i++) {
-            if (i == this.ctCount) {
-                this.ct321[i].visible = true;
-            }
-            else {
-                this.ct321[i].visible = false;
-            }
+        if (this.ctCount == 2) {
+            this.ct321[1].visible = true;
+            this.ct321[0].visible = false;
+            this.ct321[2].visible = false;
+        }
+        else if (this.ctCount == 1) {
+            this.ct321[1].visible = false;
+            this.ct321[0].visible = true;
+            this.ct321[2].visible = false;
         }
     };
     AnimationModal.prototype.timeOver = function () {
+        console.log("???");
         EventManager.pub('sendMessage', { state: 'next' });
     };
     return AnimationModal;

@@ -1,7 +1,7 @@
 class ScoreBar extends egret.DisplayObjectContainer{
     private sType : Bitmap;
 		private sBg : Bitmap;
-		private sCont : TextField;
+		private sCont : BitmapText;
 		public set score (val : string){
 			this.sCont.text = val;
 		}
@@ -28,17 +28,16 @@ class ScoreBar extends egret.DisplayObjectContainer{
 				this.sBg.x = this.sType.width;
 				this.addChild(this.sBg);
 
-				this.sCont = new TextField({
-					fontFamily:'YouYuan',
+				this.sCont = new BitmapText({
 					text: '',
-					color: 0xffffff,
-					size: 21,
+					source:'pic_sz_fnt',
+					// size: 21,
 					width: 115,
 					height:34,
 					textAlign: 'center',
 					verticalAlign: 'middle',
 				})
-				this.sCont.x= this.sBg.x;
+				this.sCont.x= this.sBg.x + 5;
 				this.sCont.y = this.sBg.y;
 				this.addChild(this.sCont);
 

@@ -60,6 +60,10 @@ class SceneGame extends egret.DisplayObjectContainer{
             source:'pic_sdk_png',
         })
 
+        EventManager.sub('currentOff',(level)=>{
+            this.killTip.level = level;
+        })
+
         EventManager.sub('produceMap',(mapInfo)=>{
             //初始化地图
             this.resetAll();

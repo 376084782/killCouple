@@ -28,13 +28,15 @@ class SceneHall extends egret.DisplayObjectContainer{
 			this.hScore.y = 6;
 			this.addChild(this.hScore);
 			//測試
-			this.hScore.score = '123456';
+			this.hScore.score = '156';
 			
 
 			this.hRank = new ScoreBar(1);
 			this.hRank.x = 390;
 			this.hRank.y = 6;
 			this.addChild(this.hRank);
+
+			this.hRank.score = '123456';
 
 			this.hLogo = new Bitmap({
 				source:'pic_logo_png',

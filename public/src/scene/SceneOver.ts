@@ -34,17 +34,17 @@ class SceneOver extends egret.DisplayObjectContainer{
 
             this.oTitle = new TitleBar();
             this.oTitle.x = (UIConfig.stageW - this.oTitle.width)/2;
-            this.oTitle.y = 110;
+            this.oTitle.y = 50;
             this.addChild(this.oTitle);
 
             this.diffScore = new RankBar();
             this.diffScore.x = 110;
-            this.diffScore.y = 250;
+            this.diffScore.y = 270;
             this.addChild(this.diffScore);
 
             this.diffRank = new RankBar();
             this.diffRank.x = 370;
-            this.diffRank.y = 250;
+            this.diffRank.y = 270;
             this.addChild(this.diffRank);
 
 			this.hBtn = new Button(0,2);

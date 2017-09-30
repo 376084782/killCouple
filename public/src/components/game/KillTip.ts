@@ -2,6 +2,12 @@ class KillTip extends egret.Sprite{
     private levTip : TextField;
     private killTip : TextField;
 
+        public set level(val:string){
+            this.levTip.text = `Level ${val}`;
+            var a = parseInt(val);
+            this.killTip.text = `已干掉情侣:${a-1}`;
+        }
+
     constructor(){
         super();
 

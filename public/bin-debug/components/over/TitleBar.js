@@ -19,7 +19,7 @@ var TitleBar = (function (_super) {
             text: '你和XX搭档在120秒共计干掉了XX对情侣',
             color: 0xffffff,
             x: 50,
-            y: 10,
+            y: 130,
             size: 28,
             width: 560,
             height: 50,

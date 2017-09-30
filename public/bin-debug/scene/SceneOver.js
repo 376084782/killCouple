@@ -28,15 +28,15 @@ var SceneOver = (function (_super) {
         _this.addChild(_this.oRank);
         _this.oTitle = new TitleBar();
         _this.oTitle.x = (UIConfig.stageW - _this.oTitle.width) / 2;
-        _this.oTitle.y = 110;
+        _this.oTitle.y = 50;
         _this.addChild(_this.oTitle);
         _this.diffScore = new RankBar();
         _this.diffScore.x = 110;
-        _this.diffScore.y = 250;
+        _this.diffScore.y = 270;
         _this.addChild(_this.diffScore);
         _this.diffRank = new RankBar();
         _this.diffRank.x = 370;
-        _this.diffRank.y = 250;
+        _this.diffRank.y = 270;
         _this.addChild(_this.diffRank);
         _this.hBtn = new Button(0, 2);
         _this.hBtn.y = 342;

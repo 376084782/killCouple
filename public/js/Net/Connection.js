@@ -30,11 +30,12 @@
 					}
 				});
 				ws.on('10033',function(oData){
-					console.log('游戏时间：',oData.time,'地图数据:',oData.mapInfo,'情侣位置：',oData.answer);
+					console.log('游戏时间：',oData.time,'地图数据:',oData.mapInfo,'情侣位置：',oData.answer,'当前关卡：' + oData.level);
 					console.log('数据类型：',typeof(oData.mapInfo))
 					EventManager.pub("startClock",oData.time);//开启倒计时
 					EventManager.pub('produceMap',oData.mapInfo);//生成地图
 					EventManager.pub('isLover',oData.answer);//记录情侣位置
+					EventManager.pub('currentOff',oData.level);//显示当前关卡、已杀情侣数
 				});
 				ws.on('10043',function(oData){
 					if(oData.code == 0){

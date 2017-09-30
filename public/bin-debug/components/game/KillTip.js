@@ -33,6 +33,15 @@ var KillTip = (function (_super) {
         _this.addChild(_this.killTip);
         return _this;
     }
+    Object.defineProperty(KillTip.prototype, "level", {
+        set: function (val) {
+            this.levTip.text = "Level " + val;
+            var a = parseInt(val);
+            this.killTip.text = "\u5DF2\u5E72\u6389\u60C5\u4FA3:" + (a - 1);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return KillTip;
 }(egret.Sprite));
 __reflect(KillTip.prototype, "KillTip");

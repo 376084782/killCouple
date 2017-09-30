@@ -188,6 +188,10 @@ var UIManager = (function () {
         switch (type) {
             case 0: {
                 this.animationModal = this.animationModal || new AnimationModal();
+                this.animationModal.ct321[2].visible = true;
+                this.animationModal.ct321[0].visible = false;
+                this.animationModal.pBoy.x = 360;
+                this.animationModal.pGirl.x = 80;
                 modal = this.animationModal;
                 break;
             }

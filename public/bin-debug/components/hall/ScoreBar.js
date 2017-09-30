@@ -25,17 +25,16 @@ var ScoreBar = (function (_super) {
         });
         _this.sBg.x = _this.sType.width;
         _this.addChild(_this.sBg);
-        _this.sCont = new TextField({
-            fontFamily: 'YouYuan',
+        _this.sCont = new BitmapText({
             text: '',
-            color: 0xffffff,
-            size: 21,
+            source: 'pic_sz_fnt',
+            // size: 21,
             width: 115,
             height: 34,
             textAlign: 'center',
             verticalAlign: 'middle',
         });
-        _this.sCont.x = _this.sBg.x;
+        _this.sCont.x = _this.sBg.x + 5;
         _this.sCont.y = _this.sBg.y;
         _this.addChild(_this.sCont);
         return _this;
