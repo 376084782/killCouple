@@ -1,4 +1,4 @@
-const missReduce = 10;
+const missReduce = 5;
 const gameTime = 120;
 
 module.exports = {
@@ -82,7 +82,7 @@ function createGameData() {
     stopping: false, //计时器开关控制器
     missReduce,
     lastAnswerId: 0,
-    finishCallback() {},
+    finishCallback() { },
     sendAnswer(id, answer) {
       this.lastAnswerId = id;
       // return -1错误 0一个正确 1两个正确，下一关
@@ -135,8 +135,9 @@ function createGameData() {
       this.level = 1;
     },
     randomMap() {
-      this.mapInfo = getData(this.level);
-      this.answer = Math.floor(this.mapInfo.length * Math.random());
+      let randomMap = getData(this.level);
+      this.mapInfo = randomMap.map;
+      this.answer = randomMap.answer;
       this.stopping = false;
       this.findedList = [];
     }
@@ -147,36 +148,55 @@ function createGameData() {
 function getBase(number, base) {
   return Math.floor(number / base) * base;
 }
-let width = 710 - 20;
-let height = 362 - 60;
 
-let base = 70;
-let step = 4;
-let list = (function() {
-  var w = Math.ceil(width / step);
-  var h = Math.ceil(height / step / 2);
-  var randomList = [];
-  for (let ix = 0; ix < w; ix += 1) {
-    for (let iy = 0; iy < h; iy += 1) {
-      var piece = `${ix * step},${step * 2 * iy}`;
-      randomList.push(piece);
-    }
-  }
-  return randomList;
-})();
+const picW = 78;
+const picH = 151;
+const jumpN = 3;
+const countType = 6;
+let width = 710 - picW;
+let height = 362 - picH;
+
+let ratio = width / height;
+
+let base = 30;
+let step = 2;
 
 function getData(level) {
   var pixel = base - step * level;
+  pixel < 1 && (pixel = 1);
+  var maxX = Math.ceil(width / pixel / jumpN);
+  var maxY = maxX / ratio;
   var data = [];
-  var from = list.concat([]);
-  var blankL = Math.floor(pixel / step);
-  var num = 4 * width * height / pixel / pixel;
-  for (var i = 0; i < num; i++) {
-    var index = getBase(from.length * Math.random(), blankL);
-    data.push(from[index]);
-    from = from.slice(0, index - 1).concat(from.slice(index));
+  let Nx = Ny = 0;
+  let answer = Math.ceil(Math.random() * (maxY * maxX + 1)) - 1;
+  for (let n = 0; n < maxY; n++) {
+    for (let m = 0; m < maxX; m++) {
+      Nx = jumpN * m + randomNumber();
+      if (Nx > Math.floor(width / pixel / jumpN)) {
+        Nx = jumpN * m + width / pixel % jumpN;
+      }
+      Ny = n;
+      if (n > 0) {
+        Ny += (Math.random() - .5) * jumpN / 5
+      }
+      let pic;
+      if (n * maxX + m == answer) {
+        pic = 0;
+      } else {
+        pic = randomNumber();
+      }
+      data.push(`${Nx * pixel},${Ny * pixel * ratio},${pic}`);
+    }
   }
-  return sortData(data, blankL);
+  return { map: data, answer: answer };
+}
+
+function randomNumber() {
+  return Math.floor(Math.random() * jumpN);
+}
+
+function randomType() {
+  return Math.ceil(Math.random() * (countType + 1)) - 1;
 }
 
 function sortData(data, piece) {
