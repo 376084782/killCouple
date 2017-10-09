@@ -23,6 +23,7 @@ var People = (function (_super) {
             y: 0,
         });
         _this.addChild(_this.pBg);
+        _this.anchorOffsetX = _this.width / 2;
         return _this;
     }
     return People;
