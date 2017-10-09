@@ -175,7 +175,6 @@ function getData(level) {
       if (Nx > Math.floor(width / pixel / jumpN)) {
         Nx = jumpN * m + (width / pixel) % jumpN;
       }
-      Nx += picW / 2;
       Ny = n;
       if (n > 0) {
         Ny += (Math.random() - 0.5) * jumpN / 3;
@@ -186,7 +185,7 @@ function getData(level) {
       } else {
         pic = randomType();
       }
-      data.push(`${Nx * pixel},${Ny * pixel * ratio},${pic}`);
+      data.push(`${Nx * pixel + picW / 2},${Ny * pixel * ratio},${pic}`);
     }
   }
   return { map: data, answer: answer };
@@ -197,7 +196,7 @@ function randomNumber() {
 }
 
 function randomType() {
-  return Math.ceil(Math.random() * (countType )) ;
+  return Math.ceil(Math.random() * countType);
 }
 
 function sortData(data, piece) {
