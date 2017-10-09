@@ -152,7 +152,7 @@ function getBase(number, base) {
 const picW = 78;
 const picH = 151;
 const jumpN = 3;
-const countType = 6;
+const countType = 10;
 let width = 710 - picW;
 let height = 362 - picH;
 
@@ -183,7 +183,7 @@ function getData(level) {
       if (n * maxX + m == answer) {
         pic = 0;
       } else {
-        pic = randomNumber();
+        pic = randomType();
       }
       data.push(`${Nx * pixel},${Ny * pixel * ratio},${pic}`);
     }
