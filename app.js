@@ -143,6 +143,14 @@ io.on("connection", function(socket) {
     }
   });
 
+  socket.on('disconnect',()=>{
+    // 断线退出游戏
+    broadcast(PROTOCOL.RESPDISCONNECT,{
+      code:0,
+      message:'对方已掉线'
+    })
+  })
+
   function sendFinish() {
     roomInfo.status = 0;
     broadcast(PROTOCOL.RESPGAMEFINISHED, {
