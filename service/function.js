@@ -149,8 +149,8 @@ function getBase(number, base) {
   return Math.floor(number / base) * base;
 }
 
-const picW = 78;
-const picH = 151;
+const picW = 101;
+const picH = 166;
 const jumpN = 3;
 const countType = 6;
 let width = 710 - picW;
