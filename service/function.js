@@ -82,7 +82,7 @@ function createGameData() {
     stopping: false, //计时器开关控制器
     missReduce,
     lastAnswerId: 0,
-    finishCallback() { },
+    finishCallback() {},
     sendAnswer(id, answer) {
       this.lastAnswerId = id;
       // return -1错误 0一个正确 1两个正确，下一关
@@ -167,17 +167,18 @@ function getData(level) {
   var maxX = Math.ceil(width / pixel / jumpN);
   var maxY = maxX / ratio;
   var data = [];
-  let Nx = Ny = 0;
+  let Nx = (Ny = 0);
   let answer = Math.ceil(Math.random() * (maxY * maxX + 1)) - 1;
   for (let n = 0; n < maxY; n++) {
     for (let m = 0; m < maxX; m++) {
       Nx = jumpN * m + randomNumber();
       if (Nx > Math.floor(width / pixel / jumpN)) {
-        Nx = jumpN * m + width / pixel % jumpN;
+        Nx = jumpN * m + (width / pixel) % jumpN;
       }
+      Nx += picW / 2;
       Ny = n;
       if (n > 0) {
-        Ny += (Math.random() - .5) * jumpN / 3
+        Ny += (Math.random() - 0.5) * jumpN / 3;
       }
       let pic;
       if (n * maxX + m == answer) {
