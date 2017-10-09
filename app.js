@@ -63,7 +63,7 @@ io.on("connection", function(socket) {
         time: roomInfo.gameData.timeLeft,
         mapInfo: roomInfo.gameData.mapInfo,
         answer: roomInfo.gameData.answer,
-        level:roomInfo.gameData.level
+        level: roomInfo.gameData.level
       });
     }
   });
@@ -115,7 +115,7 @@ io.on("connection", function(socket) {
           time: roomInfo.gameData.timeLeft,
           mapInfo: roomInfo.gameData.mapInfo,
           answer: roomInfo.gameData.answer,
-          level:roomInfo.gameData.level
+          level: roomInfo.gameData.level
         });
       }
     } else {
@@ -143,13 +143,14 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on('disconnect',()=>{
+  socket.on("disconnect", () => {
     // 断线退出游戏
-    broadcast(PROTOCOL.RESPDISCONNECT,{
-      code:0,
-      message:'对方已掉线'
-    })
-  })
+    broadcast(PROTOCOL.RESPDISCONNECT, {
+      code: 0,
+      message: "对方已掉线"
+    });
+    roomList[roomInfo.id] = null;
+  });
 
   function sendFinish() {
     roomInfo.status = 0;

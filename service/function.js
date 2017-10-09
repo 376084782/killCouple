@@ -14,16 +14,13 @@ function createRoom(id) {
     setReady(id) {
       if (this.readyList.indexOf(id) == -1) {
         this.readyList.push(id);
-        if (this.readyList.length == 2) {
-          if (this.status < 2) {
-            this.status = 2;
-            this.gameData.start();
-            this.readyList = [];
-          }
+      }
+      if (this.readyList.length == 2) {
+        if (this.status < 2) {
+          this.status = 2;
+          this.gameData.start();
+          this.readyList = [];
         }
-        return true;
-      } else {
-        return false;
       }
     },
     toNext(id) {
