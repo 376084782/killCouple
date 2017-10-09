@@ -197,7 +197,7 @@ function randomNumber() {
 }
 
 function randomType() {
-  return Math.ceil(Math.random() * (countType + 1)) - 1;
+  return Math.ceil(Math.random() * (countType )) ;
 }
 
 function sortData(data, piece) {

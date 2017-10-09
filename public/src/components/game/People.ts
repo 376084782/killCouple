@@ -1,14 +1,17 @@
 class People extends egret.Sprite{
     private pBg : Bitmap;
 
-    constructor(){
+    constructor(src : string){
         super();
-        this.width = 70;
-        this.height = 160;
+
+        let source : string ; 
+        if(src == '0'){
+            source = 'pic_ql_png';
+        }else {
+            source = 'pic_dsg_' + src + '_png';
+        }
         this.pBg = new Bitmap({
-            source:'pic_dsg_1_png',
-            width:70,
-            height:160,
+            source:source,
             x:0,
             y:0,
         })

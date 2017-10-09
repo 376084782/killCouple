@@ -58,7 +58,7 @@ var SceneGame = (function (_super) {
             _this.resetAll();
             for (var i = 0; i < mapInfo.length; i++) {
                 var tempXY = mapInfo[i].split(',');
-                _this.peoples[i] = new People();
+                _this.peoples[i] = new People(tempXY[2]);
                 _this.peoples[i].x = parseInt(tempXY[0]);
                 _this.peoples[i].y = parseInt(tempXY[1]);
                 _this.folkMap.addChild(_this.peoples[i]);
