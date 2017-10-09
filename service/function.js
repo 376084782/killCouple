@@ -149,8 +149,8 @@ function getBase(number, base) {
   return Math.floor(number / base) * base;
 }
 
-const picW = 78;
-const picH = 151;
+const picW = 101;
+const picH = 166;
 const jumpN = 3;
 const countType = 10;
 let width = 710 - picW;
@@ -159,7 +159,7 @@ let height = 362 - picH;
 let ratio = width / height;
 
 let base = 30;
-let step = 2;
+let step = 1;
 
 function getData(level) {
   var pixel = base - step * level;
@@ -177,7 +177,7 @@ function getData(level) {
       }
       Ny = n;
       if (n > 0) {
-        Ny += (Math.random() - .5) * jumpN / 5
+        Ny += (Math.random() - .5) * jumpN / 3
       }
       let pic;
       if (n * maxX + m == answer) {
