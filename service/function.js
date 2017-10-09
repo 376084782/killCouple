@@ -168,7 +168,7 @@ function getData(level) {
   var maxY = Math.ceil(maxX / ratio);
   var data = [];
   let Nx = (Ny = 0);
-  let answer = Math.ceil(Math.random() * (maxY * maxX + 1)) - 1;
+  let answer = Math.ceil(Math.random() * (maxY * maxX)) - 1;
   for (let n = 0; n < maxY; n++) {
     for (let m = 0; m < maxX; m++) {
       Nx = jumpN * m + randomNumber();

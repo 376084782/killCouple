@@ -11,7 +11,7 @@
 		initWS : function(){
 			var self = this;
 			if (window.WebSocket) {
-				ws = io("ws://192.168.141.101");
+				ws = io("ws://localhost");
 				ws.on("connect",function(e){
 					self.bConnectSuccess = true;
 					self.start();
