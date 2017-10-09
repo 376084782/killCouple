@@ -104,8 +104,15 @@ var SceneGame = (function (_super) {
                 _this.peoples[GameData.loverID].touchEnabled = false;
             }
             else {
-                //对方答对
-                _this.findTip.cont = GameData.fCopy[2];
+                //对方答对    
+                //判断自己是否已经答对
+                if (GameData.isAnswer) {
+                    _this.findTip.cont = GameData.fCopy[3];
+                }
+                else if (!GameData.isAnswer) {
+                    _this.findTip.cont = GameData.fCopy[2];
+                    GameData.isAnswer = true;
+                }
             }
         });
         EventManager.sub('stopTime', function () {
@@ -122,6 +129,7 @@ var SceneGame = (function (_super) {
         this.touchLayer.touchEnabled = true;
         this.findTip.cont = GameData.fCopy[0];
         this.timeTip.cont = GameData.tCopy[0];
+        GameData.isAnswer = false;
     };
     return SceneGame;
 }(egret.DisplayObjectContainer));

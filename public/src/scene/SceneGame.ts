@@ -119,8 +119,14 @@ class SceneGame extends egret.DisplayObjectContainer{
                 this.touchLayer.touchEnabled = false;
                 this.peoples[GameData.loverID].touchEnabled = false;
             }else {
-                //对方答对
-                this.findTip.cont = GameData.fCopy[2];
+                //对方答对    
+                //判断自己是否已经答对
+                if(GameData.isAnswer){
+                    this.findTip.cont = GameData.fCopy[3];
+                }else if(!GameData.isAnswer){
+                    this.findTip.cont = GameData.fCopy[2];
+                    GameData.isAnswer = true;
+                }
             }
         })
 
@@ -134,11 +140,12 @@ class SceneGame extends egret.DisplayObjectContainer{
     }
 
     private resetAll(){
-        this.peoples= [];
+         this.peoples= [];
          this.folkMap && this.folkMap.removeChildren();
          this.touchLayer.touchEnabled = true;
          this.findTip.cont = GameData.fCopy[0];
          this.timeTip.cont = GameData.tCopy[0];
+         GameData.isAnswer = false;
 
     }
 
