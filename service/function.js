@@ -165,7 +165,7 @@ function getData(level) {
   var pixel = base - step * level;
   pixel < 1 && (pixel = 1);
   var maxX = Math.ceil(width / pixel / jumpN);
-  var maxY = maxX / ratio;
+  var maxY = Math.ceil(maxX / ratio);
   var data = [];
   let Nx = (Ny = 0);
   let answer = Math.ceil(Math.random() * (maxY * maxX + 1)) - 1;
