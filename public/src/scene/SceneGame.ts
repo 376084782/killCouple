@@ -81,7 +81,7 @@ class SceneGame extends egret.DisplayObjectContainer{
             GameData.loverID = answer;
             this.peoples[answer].touchEnabled = true;
 
-            this.pCir.x = - (this.pCir.width - this.peoples[answer].width)/2 + this.peoples[answer].x;
+            this.pCir.x = - (this.pCir.width - this.peoples[answer].width)/2 + this.peoples[answer].x - (this.peoples[answer].width)/2;
             this.pCir.y = (this.peoples[answer].height - this.pCir.height)/2 + this.peoples[answer].y;
             this.pCir.visible = false;
             this.addChild(this.pCir);

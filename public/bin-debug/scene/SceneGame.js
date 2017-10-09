@@ -67,7 +67,7 @@ var SceneGame = (function (_super) {
         EventManager.sub('isLover', function (answer) {
             GameData.loverID = answer;
             _this.peoples[answer].touchEnabled = true;
-            _this.pCir.x = -(_this.pCir.width - _this.peoples[answer].width) / 2 + _this.peoples[answer].x;
+            _this.pCir.x = -(_this.pCir.width - _this.peoples[answer].width) / 2 + _this.peoples[answer].x - (_this.peoples[answer].width) / 2;
             _this.pCir.y = (_this.peoples[answer].height - _this.pCir.height) / 2 + _this.peoples[answer].y;
             _this.pCir.visible = false;
             _this.addChild(_this.pCir);
