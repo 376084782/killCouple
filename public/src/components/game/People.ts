@@ -16,5 +16,6 @@ class People extends egret.Sprite{
             y:0,
         })
         this.addChild(this.pBg);
+        this.anchorOffsetX = this.width / 2 ;
     }
 }
