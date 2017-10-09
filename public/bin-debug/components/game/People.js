@@ -8,14 +8,17 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var People = (function (_super) {
     __extends(People, _super);
-    function People() {
+    function People(src) {
         var _this = _super.call(this) || this;
-        _this.width = 70;
-        _this.height = 160;
+        var source;
+        if (src == '0') {
+            source = 'pic_ql_png';
+        }
+        else {
+            source = 'pic_dsg_' + src + '_png';
+        }
         _this.pBg = new Bitmap({
-            source: 'pic_dsg_1_png',
-            width: 70,
-            height: 160,
+            source: source,
             x: 0,
             y: 0,
         });

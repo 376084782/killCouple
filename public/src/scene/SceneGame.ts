@@ -70,7 +70,7 @@ class SceneGame extends egret.DisplayObjectContainer{
 
             for(var i =0 ; i <mapInfo.length; i++){
                 var tempXY = mapInfo[i].split(',');
-                this.peoples[i] = new People();
+                this.peoples[i] = new People(tempXY[2]);
                 this.peoples[i].x = parseInt(tempXY[0]);
                 this.peoples[i].y = parseInt(tempXY[1]);
                 this.folkMap.addChild(this.peoples[i]);
