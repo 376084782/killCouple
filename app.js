@@ -1,26 +1,36 @@
-var app = require("http").createServer(handler);
-var io = require("socket.io")(app);
+var io = require("socket.io");
 var fs = require("fs");
 var service = require("./service/function");
-
+var express = require('express');
+var app = express();
 var PROTOCOL = require("./service/protocol");
-app.listen(80);
+var path = require('path');
+app.listen(5050);
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.set('views', path.join(__dirname, 'public'));
+
+app.get('/', function (req, res, next) {
+  req.render('index')
+})
 
 function handler(req, res) {
-  fs.readFile(__dirname + "/public/test.html", function(err, data) {
+  fs.readFile(__dirname + "/public/index.html", function(err, data) {
     if (err) {
       res.writeHead(500);
       return res.end("Error loading index.html");
     }
-
-    res.writeHead(200);
-    res.end(data);
+    console.log(data)
+    res.write(data);
+    res.end();
   });
 }
 
 var roomList = {};
 var userList = {};
-io.on("connection", function(socket) {
+var ws=io.listen(5);
+ws.on("connection", function(socket) {
   var userInfo = {};
   var roomInfo = {};
   var id = 0;

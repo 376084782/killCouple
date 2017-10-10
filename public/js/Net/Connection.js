@@ -11,7 +11,7 @@ TikiGame.$(function(auth) {
     TikiGame.getRoomInfo(function(resp) {
       let dataTmp = resp.to;
       let userId = resp.uid;
-      Connection.initWS("ws://localhost");
+      Connection.initWS("ws://localhost:05");
     });
     // 获取得分
     TikiGame.getUserScore(function(resp) {
@@ -133,4 +133,4 @@ var Connection = {
     //接收到服务器信息、解析、分发
   }
 };
-Connection.initWS("ws://localhost");
+Connection.initWS("ws://192.168.141.112:5");

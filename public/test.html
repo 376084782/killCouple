@@ -30,7 +30,7 @@
   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="http://lib.baomitu.com/socket.io/2.0.3/socket.io.slim.js"></script>
   <script>
-    var socket = io('http://localhost');
+    var socket = io('http://localhost:5');
     var answer = 0;
     var myId = Math.floor(1000 * Math.random());
     socket.on('10033', function (data) {

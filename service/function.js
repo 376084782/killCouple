@@ -177,12 +177,14 @@ function getData(level) {
         Ny += (Math.random() - 0.5) * jumpN / 3;
       }
       let pic;
+      let isRotate = false;
       if (n * maxX + m == answer) {
         pic = 0;
       } else {
         pic = randomType();
+        isRotate = Math.random() < 0.5;
       }
-      data.push(`${Nx * pixel + picW / 2},${Ny * pixel * ratio},${pic}`);
+      data.push(`${Nx * pixel + picW / 2},${Ny * pixel * ratio},${pic},${isRotate}`);
     }
   }
   return { map: data, answer: answer };
