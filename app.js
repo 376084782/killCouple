@@ -1,9 +1,10 @@
 var app = require("http").createServer(handler);
 var io = require("socket.io")(app);
 var fs = require("fs");
-var service = require("./service/function");
 
+var service = require("./service/function");
 var PROTOCOL = require("./service/protocol");
+
 app.listen(80);
 
 function handler(req, res) {
