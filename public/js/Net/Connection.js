@@ -36,6 +36,11 @@ TikiGame.$(function(auth) {
 			});
 		})
 
+    //结束游戏
+    EventManager.sub('closeGame',()=>{
+      TikiGame.exitView(true);
+    })
+
 
 
   } else {
@@ -112,9 +117,13 @@ var Connection = {
         //关闭modal 打开触控区
         EventManager.pub("modal/onModalClose");
       });
+      ws.on("12003", function() {
+        EventManager.pub("closeGame");
+      });
       ws.on("disconnect", function() {
         //调用关闭游戏API
-        alert("网络连接已断开，请重新登录~");
+        EventManager.pub('closeGame');
+        // alert("网络连接已断开，请重新登录~");
       });
       EventManager.sub("sendMessage", oData => {
         switch (oData.state) {
