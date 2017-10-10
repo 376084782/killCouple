@@ -39,16 +39,16 @@ class SceneOver extends egret.DisplayObjectContainer{
 
             this.diffScore = new RankBar();
             this.diffScore.x = 110;
-            this.diffScore.y = 270;
+            this.diffScore.y = 265;
             this.addChild(this.diffScore);
 
             this.diffRank = new RankBar();
             this.diffRank.x = 370;
-            this.diffRank.y = 270;
+            this.diffRank.y = 265;
             this.addChild(this.diffRank);
 
 			this.hBtn = new Button(0,2);
-			this.hBtn.y = 342;
+			this.hBtn.y = 335;
 			this.hBtn.x = (UIConfig.stageW - this.hBtn.width)/2;
 			this.addChild(this.hBtn);
 
@@ -59,8 +59,30 @@ class SceneOver extends egret.DisplayObjectContainer{
 			},this)
 
             EventManager.sub('showLevel',()=>{
-				this.oTitle.score = `你和${GameData.teamMateName}搭档在120秒共计干掉了${GameData.gameLevel}对情侣`;
+				// this.oTitle.score = `你和${GameData.teamMateName}搭档在120秒共计干掉了${GameData.gameLevel}对情侣`;
+				this.oTitle.score = `你和搭档在120秒共计干掉了${GameData.gameLevel}对情侣`;
 			})
-			
+
+			//更新排名
+			EventManager.sub('updataScore',(oData)=>{
+				this.oScore.score = oData.score;
+				this.oRank.score = oData.rank;
+
+				let diffScore = GameData.oldScore - oData.score;
+				let diffRank = GameData.oldRank - oData.rank;
+
+				GameData.oldScore = oData.score;
+				GameData.oldRank = oData.rank;
+
+				this.diffScore.score = diffScore;
+				this.diffRank.rank = diffRank;
+
+			});
+
+			//返回闯关情况
+			let score = (GameData.gameLevel - 1) * 10;
+			EventManager.pub('returnScore',score);
+
+
     }
 }
