@@ -177,12 +177,12 @@ function getData(level) {
         Ny += (Math.random() - 0.5) * jumpN / 3;
       }
       let pic;
-      let isRotate = false;
+      let isRotate = 0;
       if (n * maxX + m == answer) {
         pic = 0;
       } else {
         pic = randomType();
-        isRotate = Math.random() < 0.5;
+        isRotate = Math.random() < 0.5?0:1;
       }
       data.push(`${Nx * pixel + picW / 2},${Ny * pixel * ratio},${pic},${isRotate}`);
     }
