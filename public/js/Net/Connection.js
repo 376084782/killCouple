@@ -15,7 +15,7 @@ TikiGame.$(function(auth) {
 
 			GameData.nId = userId;
 			GameData.roomId = userRoomId;
-			let dizhi = `ws://112.124.112.61:9092?_d=gameId&_t=${userRoomId}&cid=${userId}`
+			let dizhi = `ws://116.62.204.200:5050?_d=gameId&_t=${userRoomId}&cid=${userId}`
 
       Connection.initWS(dizhi);
     });
@@ -118,6 +118,7 @@ var Connection = {
         EventManager.pub("modal/onModalClose");
       });
       ws.on("12003", function() {
+        alert('对方掉线！游戏无法继续')
         EventManager.pub("closeGame");
       });
       ws.on("disconnect", function() {
