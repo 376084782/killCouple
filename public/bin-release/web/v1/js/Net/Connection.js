@@ -15,7 +15,7 @@ TikiGame.$(function(auth) {
 
 			GameData.nId = userId;
 			GameData.roomId = userRoomId;
-			let dizhi = `ws://116.62.204.200:5050?_d=gameId&_t=${userRoomId}&cid=${userId}`
+			let dizhi = `ws://112.124.112.61:9092?_d=gameId&_t=${userRoomId}&cid=${userId}`
 
       Connection.initWS(dizhi);
     });
@@ -35,11 +35,6 @@ TikiGame.$(function(auth) {
 				EventManager.pub('updataScore',{score:resp.score,rank:resp.rank});
 			});
 		})
-
-    //结束游戏
-    EventManager.sub('closeGame',()=>{
-      TikiGame.exitView(true);
-    })
 
 
 
@@ -117,14 +112,9 @@ var Connection = {
         //关闭modal 打开触控区
         EventManager.pub("modal/onModalClose");
       });
-      ws.on("12003", function() {
-        alert('对方掉线！游戏无法继续')
-        EventManager.pub("closeGame");
-      });
       ws.on("disconnect", function() {
         //调用关闭游戏API
-        EventManager.pub('closeGame');
-        // alert("网络连接已断开，请重新登录~");
+        alert("网络连接已断开，请重新登录~");
       });
       EventManager.sub("sendMessage", oData => {
         switch (oData.state) {

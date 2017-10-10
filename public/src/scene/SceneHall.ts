@@ -71,6 +71,15 @@ class SceneHall extends egret.DisplayObjectContainer{
 
 	fListen(){
 
+		//更新排名
+		EventManager.sub('updataScore',(oData)=>{
+			this.hScore.score = oData.score;
+			this.hRank.score = oData.rank;
+
+			GameData.oldScore = oData.score;
+			GameData.oldRank = oData.rank;
+		});
+
 	}
 
   onLeave() {

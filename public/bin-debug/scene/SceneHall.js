@@ -61,6 +61,14 @@ var SceneHall = (function (_super) {
         }, this);
     };
     SceneHall.prototype.fListen = function () {
+        var _this = this;
+        //更新排名
+        EventManager.sub('updataScore', function (oData) {
+            _this.hScore.score = oData.score;
+            _this.hRank.score = oData.rank;
+            GameData.oldScore = oData.score;
+            GameData.oldRank = oData.rank;
+        });
     };
     SceneHall.prototype.onLeave = function () {
         this.init();

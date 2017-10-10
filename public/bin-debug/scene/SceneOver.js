@@ -32,14 +32,14 @@ var SceneOver = (function (_super) {
         _this.addChild(_this.oTitle);
         _this.diffScore = new RankBar();
         _this.diffScore.x = 110;
-        _this.diffScore.y = 270;
+        _this.diffScore.y = 265;
         _this.addChild(_this.diffScore);
         _this.diffRank = new RankBar();
         _this.diffRank.x = 370;
-        _this.diffRank.y = 270;
+        _this.diffRank.y = 265;
         _this.addChild(_this.diffRank);
         _this.hBtn = new Button(0, 2);
-        _this.hBtn.y = 342;
+        _this.hBtn.y = 335;
         _this.hBtn.x = (UIConfig.stageW - _this.hBtn.width) / 2;
         _this.addChild(_this.hBtn);
         _this.hBtn.touchEnabled = true;
@@ -48,8 +48,23 @@ var SceneOver = (function (_super) {
                 UImanager.to('hall'); //回到首頁
         }, _this);
         EventManager.sub('showLevel', function () {
-            _this.oTitle.score = "\u4F60\u548C" + GameData.teamMateName + "\u642D\u6863\u5728120\u79D2\u5171\u8BA1\u5E72\u6389\u4E86" + GameData.gameLevel + "\u5BF9\u60C5\u4FA3";
+            // this.oTitle.score = `你和${GameData.teamMateName}搭档在120秒共计干掉了${GameData.gameLevel}对情侣`;
+            _this.oTitle.score = "\u4F60\u548C\u642D\u6863\u5728120\u79D2\u5171\u8BA1\u5E72\u6389\u4E86" + GameData.gameLevel + "\u5BF9\u60C5\u4FA3";
         });
+        //更新排名
+        EventManager.sub('updataScore', function (oData) {
+            _this.oScore.score = oData.score;
+            _this.oRank.score = oData.rank;
+            var diffScore = GameData.oldScore - oData.score;
+            var diffRank = GameData.oldRank - oData.rank;
+            GameData.oldScore = oData.score;
+            GameData.oldRank = oData.rank;
+            _this.diffScore.score = diffScore;
+            _this.diffRank.rank = diffRank;
+        });
+        //返回闯关情况
+        var score = (GameData.gameLevel - 1) * 10;
+        EventManager.pub('returnScore', score);
         return _this;
     }
     return SceneOver;
