@@ -12,10 +12,12 @@ TikiGame.$(function(auth) {
       let dataTmp = resp.to;
 			let userRoomId = resp.roomid; 
       let userId = resp.uid;
+      let sio = resp.sio;
 
 			GameData.nId = userId;
 			GameData.roomId = userRoomId;
-			let dizhi = `ws://116.62.204.200:5050?_d=gameId&_t=${userRoomId}&cid=${userId}`
+      let dizhi  = `ws://${sio}?_d=gameId&_t=${userRoomId}&cid=${userId}`;
+			// let dizhi = `ws://116.62.204.200:05?_d=gameId&_t=${userRoomId}&cid=${userId}`
 
       Connection.initWS(dizhi);
     });
@@ -154,13 +156,13 @@ var Connection = {
       if (data.code == 0) console.log("发送房间成功");
       else console.log("发送房间失败");
     });
-    id = Math.floor(Math.random() * 1000);
-    GameData.nId = id;
-    GameData.roomId = 1;
+    // id = Math.floor(Math.random() * 1000);
+    // GameData.nId = id;
+    // GameData.roomId = 1;
     ws.emit(10000, { id: GameData.nId, roomid: GameData.roomId });
   },
   onMsg: function() {
     //接收到服务器信息、解析、分发
   }
 };
-Connection.initWS("ws://localhost");
+// Connection.initWS("ws://localhost");
