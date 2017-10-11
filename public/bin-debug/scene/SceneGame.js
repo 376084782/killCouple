@@ -61,6 +61,9 @@ var SceneGame = (function (_super) {
                 _this.peoples[i] = new People(tempXY[2]);
                 _this.peoples[i].x = parseInt(tempXY[0]);
                 _this.peoples[i].y = parseInt(tempXY[1]);
+                if (parseInt(tempXY[3]) == 1) {
+                    _this.peoples[i].skewY = 180;
+                }
                 _this.folkMap.addChild(_this.peoples[i]);
             }
         });
