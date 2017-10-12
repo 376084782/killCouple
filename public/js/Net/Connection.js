@@ -19,7 +19,7 @@ TikiGame.$(function(auth) {
       let dizhi  = `ws://${sio}?_d=gameId&_t=${userRoomId}&cid=${userId}`;
 			// let dizhi = `ws://116.62.204.200:05?_d=gameId&_t=${userRoomId}&cid=${userId}`
 
-      Connection.initWS(dizhi);
+      Connection.initWS(sio);
     });
     // 获取得分
     TikiGame.getUserScore(function(resp) {
