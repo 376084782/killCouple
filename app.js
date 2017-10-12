@@ -6,15 +6,6 @@ var express = require('express');
 var app = express();
 var PROTOCOL = require("./service/protocol");
 var path = require('path');
-app.listen(5050);
-
-app.use(express.static(path.join(__dirname, 'public')))
-
-app.set('views', path.join(__dirname, 'public'));
-
-app.get('/', function (req, res, next) {
-  req.render('index')
-})
 
 function handler(req, res) {
   fs.readFile(__dirname + "/public/index.html", function(err, data) {
@@ -30,7 +21,7 @@ function handler(req, res) {
 
 var roomList = {};
 var userList = {};
-var ws=io.listen(5);
+var ws=io.listen(6666);
 ws.on("connection", function(socket) {
   var userInfo = {};
   var roomInfo = {};
