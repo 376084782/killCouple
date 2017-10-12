@@ -73,6 +73,10 @@ class SceneGame extends egret.DisplayObjectContainer{
                 this.peoples[i] = new People(tempXY[2]);
                 this.peoples[i].x = parseInt(tempXY[0]);
                 this.peoples[i].y = parseInt(tempXY[1]);
+                if(parseInt(tempXY[3]) == 1){
+
+                    this.peoples[i].skewY = 180;
+                }
                 this.folkMap.addChild(this.peoples[i]);
             }
         })
