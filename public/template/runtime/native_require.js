@@ -9,9 +9,9 @@ var game_file_list = [
 	"libs/modules/tween/tween.js",
 	"polyfill/promise.js",
 	"js/EventManager/EventManager.js",
-	"js/Net/Connection.js",
+	"js/Net/Connection.js?v=4",
 	"bin-debug/components/common/ModalLayer.js",
-	"bin-debug/components/game/People.js",
+	"bin-debug/components/common/BitmapText.js",
 	"bin-debug/components/common/Button.js",
 	"bin-debug/components/common/ImageLoader.js",
 	"bin-debug/components/common/LoadingLayer.js",
@@ -22,7 +22,7 @@ var game_file_list = [
 	"bin-debug/components/game/Clock.js",
 	"bin-debug/components/game/FindTip.js",
 	"bin-debug/components/game/KillTip.js",
-	"bin-debug/components/common/BitmapText.js",
+	"bin-debug/scene/SceneOver.js",
 	"bin-debug/components/game/TimeTip.js",
 	"bin-debug/components/hall/ScoreBar.js",
 	"bin-debug/components/modals/AnimationModal.js",
@@ -34,7 +34,7 @@ var game_file_list = [
 	"bin-debug/manager/UIManager.js",
 	"bin-debug/scene/SceneGame.js",
 	"bin-debug/scene/SceneHall.js",
-	"bin-debug/scene/SceneOver.js",
+	"bin-debug/components/game/People.js",
 	//----auto game_file_list end----
 ];
 

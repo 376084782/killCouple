@@ -21,7 +21,7 @@ function handler(req, res) {
 
 var roomList = {};
 var userList = {};
-var ws=io.listen(6666);
+var ws=io.listen(5555);
 ws.on("connection", function(socket) {
   var userInfo = {};
   var roomInfo = {};

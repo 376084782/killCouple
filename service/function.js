@@ -146,21 +146,21 @@ function getBase(number, base) {
   return Math.floor(number / base) * base;
 }
 
-const picW = 101;
-const picH = 166;
+const picW = 50;
+const picH = 83;
 const jumpN = 3;
 const countType = 10;
-let width = 710 - picW;
+let width = 710;
 let height = 362 - picH;
 
 let ratio = width / height;
 
-let base = 30;
-let step = 1;
+let base = 15;
+let step = .8;
 
 function getData(level) {
   var pixel = base - step * level;
-  pixel < 1 && (pixel = 1);
+  pixel < 8 && (pixel = 8);
   var maxX = Math.ceil(width / pixel / jumpN);
   var maxY = Math.ceil(maxX / ratio);
   var data = [];
@@ -184,7 +184,7 @@ function getData(level) {
         pic = randomType();
         isRotate = Math.random() < 0.5?0:1;
       }
-      data.push(`${Nx * pixel + picW / 2},${Ny * pixel * ratio},${pic},${isRotate}`);
+      data.push(`${Nx * pixel},${Ny * pixel * ratio},${pic},${isRotate}`);
     }
   }
   return { map: data, answer: answer };

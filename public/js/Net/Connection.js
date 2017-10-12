@@ -1,51 +1,6 @@
 /**
  * websocket连接模块
  */
-
-// 1、获取自己的排名、分数       2、发送准备数据、误操作数据、找到情侣数据、游戏结束、游戏分数、返回首页   2、接收开始游戏、对家找到情侣、游戏进入下一关、进入结束页面、游戏新排名、分数
-TikiGame.$(function(auth) {
-  // 所有sdk函数在此内部调用
-  // 回调内参数 auth.data 内包含了当前用户自己的信息
-  if (auth.code == 0) {
-    TikiGame.getRoomInfo(function(resp) {
-      let dataTmp = resp.to;
-      let userRoomId = resp.roomid;
-      let userId = resp.uid;
-      let sio = resp.sio;
-
-      GameData.nId = userId;
-      GameData.roomId = userRoomId;
-      let dizhi = `ws://${sio}?_d=gameId&_t=${userRoomId}&cid=${userId}`;
-
-      // 获取得分
-      TikiGame.getUserScore(function(resp) {
-        // resp.score;// 在pa内的得分
-        // resp.rank; //在pa内的排行
-        EventManager.pub("updataScore", { score: resp.score, rank: resp.rank });
-      });
-      
-      TikiGame.showGameView();
-      Connection.initWS(sio);
-    });
-
-    //返回得分
-    EventManager.sub("returnScore", rtScore => {
-      TikiGame.increaseScore(rtScore, function(resp) {
-        // resp.score; //修改后的得分
-        // resp.rank; // 修改分数后的排行
-        EventManager.pub("updataScore", { score: resp.score, rank: resp.rank });
-      });
-    });
-
-    //结束游戏
-    EventManager.sub("closeGame", () => {
-      TikiGame.exitView(true);
-    });
-  } else {
-    alert(auth.msg);
-  }
-});
-
 var Connection = {
   bConnectSuccess: false,
   //初始化socket
@@ -120,6 +75,7 @@ var Connection = {
     ws.on("disconnect", function() {
       //调用关闭游戏API
       // alert("网络连接已断开，请重新登录~");
+      ws.close();
       EventManager.pub("closeGame");
     });
     EventManager.sub("sendMessage", oData => {
@@ -156,4 +112,54 @@ var Connection = {
     //接收到服务器信息、解析、分发
   }
 };
+// 1、获取自己的排名、分数       2、发送准备数据、误操作数据、找到情侣数据、游戏结束、游戏分数、返回首页   2、接收开始游戏、对家找到情侣、游戏进入下一关、进入结束页面、游戏新排名、分数
+TikiGame.$(function(auth) {
+  // 所有sdk函数在此内部调用
+  // 回调内参数 auth.data 内包含了当前用户自己的信息
+  if (auth.code == 0) {
+    TikiGame.getRoomInfo(function(resp) {
+      let dataTmp = resp.to;
+      let userRoomId = resp.roomid;
+      let userId = resp.uid;
+      let sio = resp.sio;
+
+      GameData.nId = userId;
+      GameData.roomId = userRoomId;
+      let dizhi = `ws://${sio}?_d=gameId&_t=${userRoomId}&cid=${userId}`;
+
+      // 获取得分
+      TikiGame.getUserScore(function(resp) {
+        // resp.score;// 在pa内的得分
+        // resp.rank; //在pa内的排行
+        EventManager.pub("updataScore", { score: resp.score, rank: resp.rank });
+      });
+      
+      TikiGame.showGameView();
+      Connection.initWS(sio);
+    });
+
+    //返回得分
+    EventManager.sub("returnScore", rtScore => {
+      TikiGame.increaseScore(rtScore, function(resp) {
+        // resp.score; //修改后的得分
+        // resp.rank; // 修改分数后的排行
+        EventManager.pub("updataScore", { score: resp.score, rank: resp.rank });
+      });
+    });
+
+    //结束游戏
+    EventManager.sub("closeGame", () => {
+      TikiGame.exitView(true);
+    });
+  } else {
+    setTimeout(function(){
+      id = Math.floor(Math.random() * 1000);
+      GameData.nId = id;
+      GameData.roomId = 1;
+      Connection.initWS('ws://192.168.0.109:5555');
+    },0)
+  }
+});
+
+
 // Connection.initWS("ws://localhost:05");

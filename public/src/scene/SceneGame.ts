@@ -77,6 +77,8 @@ class SceneGame extends egret.DisplayObjectContainer{
 
                     this.peoples[i].skewY = 180;
                 }
+                this.peoples[i].scaleX = .5;
+                this.peoples[i].scaleY = .5;
                 this.folkMap.addChild(this.peoples[i]);
             }
         })
