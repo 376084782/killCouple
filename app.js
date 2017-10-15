@@ -8,7 +8,7 @@ var PROTOCOL = require("./service/protocol");
 var path = require('path');
 
 function handler(req, res) {
-  fs.readFile(__dirname + "/public/index.html", function(err, data) {
+  fs.readFile(__dirname + "/public/index.html", function (err, data) {
     if (err) {
       res.writeHead(500);
       return res.end("Error loading index.html");
@@ -21,8 +21,8 @@ function handler(req, res) {
 
 var roomList = {};
 var userList = {};
-var ws=io.listen(5555);
-ws.on("connection", function(socket) {
+var ws = io.listen(5555);
+ws.on("connection", function (socket) {
   var userInfo = {};
   var roomInfo = {};
   var id = 0;
@@ -81,7 +81,9 @@ ws.on("connection", function(socket) {
         data: {
           answerId: roomInfo.gameData.lastAnswerId,
           timeReduced: roomInfo.gameData.missReduce,
-          timeLeft: roomInfo.gameData.timeLeft
+          timeLeft: roomInfo.gameData.timeLeft,
+          x: data.x || 0,
+          y: data.y || 0
         }
       });
     } else {
