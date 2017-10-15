@@ -59,6 +59,8 @@ class SceneGame extends egret.DisplayObjectContainer{
         this.pCir =  new Bitmap({
             source:'pic_sdk_png',
         })
+        this.pCir.width /= 2;
+        this.pCir.height /= 2;
 
         EventManager.sub('currentOff',(level)=>{
             this.killTip.level = level;

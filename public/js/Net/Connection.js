@@ -125,7 +125,7 @@ TikiGame.$(function(auth) {
 
       GameData.nId = userId;
       GameData.roomId = userRoomId;
-      let dizhi = `ws://${sio}?_d=gameId&_t=${userRoomId}&cid=${userId}`;
+      // let dizhi = `ws://${sio}?_d=gameId&_t=${userRoomId}&cid=${userId}`;
 
       // 获取得分
       TikiGame.getUserScore(function(resp) {
@@ -153,13 +153,14 @@ TikiGame.$(function(auth) {
     });
   } else {
     setTimeout(function(){
+      console.log('返回異常')
       id = Math.floor(Math.random() * 1000);
       GameData.nId = id;
       GameData.roomId = 1;
-      Connection.initWS('ws://192.168.0.109:5555');
+      Connection.initWS('ws://116.62.204.200:5555');
     },0)
   }
 });
 
-
+// Connection.initWS('ws://116.62.204.200:5555');
 // Connection.initWS("ws://localhost:05");

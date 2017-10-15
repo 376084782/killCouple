@@ -50,6 +50,8 @@ var SceneGame = (function (_super) {
         _this.pCir = new Bitmap({
             source: 'pic_sdk_png',
         });
+        _this.pCir.width /= 2;
+        _this.pCir.height /= 2;
         EventManager.sub('currentOff', function (level) {
             _this.killTip.level = level;
         });
