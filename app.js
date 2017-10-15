@@ -73,6 +73,7 @@ ws.on("connection", function (socket) {
   // 提交答案
   socket.on(PROTOCOL.REQFIND, data => {
     let type = roomInfo.gameData.sendAnswer(id, data.answer);
+    console.log(data)
     if (type == -1) {
       // 答错扣时间
       broadcast(PROTOCOL.RESPFIND, {
