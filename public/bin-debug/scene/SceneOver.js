@@ -22,10 +22,12 @@ var SceneOver = (function (_super) {
         _this.addChild(_this.oScore);
         //測試
         _this.oScore.score = '123456';
+        _this.oScore.visible = false;
         _this.oRank = new ScoreBar(1);
         _this.oRank.x = 390;
         _this.oRank.y = 6;
         _this.addChild(_this.oRank);
+        _this.oRank.visible = false;
         _this.oTitle = new TitleBar();
         _this.oTitle.x = (UIConfig.stageW - _this.oTitle.width) / 2;
         _this.oTitle.y = 50;
@@ -53,18 +55,19 @@ var SceneOver = (function (_super) {
         });
         //更新排名
         EventManager.sub('updataScore', function (oData) {
-            _this.oScore.score = oData.score;
-            _this.oRank.score = oData.rank;
-            var diffScore = GameData.oldScore - oData.score;
-            var diffRank = GameData.oldRank - oData.rank;
-            GameData.oldScore = oData.score;
-            GameData.oldRank = oData.rank;
-            _this.diffScore.score = diffScore;
-            _this.diffRank.rank = diffRank;
+            if (oData.score != null && oData.rank != null) {
+                _this.oScore.visible = true;
+                _this.oRank.visible = true;
+                _this.oScore.score = oData.score;
+                _this.oRank.score = oData.rank;
+                var diffScore = GameData.oldScore - oData.score;
+                var diffRank = GameData.oldRank - oData.rank;
+                GameData.oldScore = oData.score;
+                GameData.oldRank = oData.rank;
+                _this.diffScore.score = diffScore;
+                _this.diffRank.rank = diffRank;
+            }
         });
-        //返回闯关情况
-        var score = (GameData.gameLevel - 1) * 10;
-        EventManager.pub('returnScore', score);
         return _this;
     }
     return SceneOver;

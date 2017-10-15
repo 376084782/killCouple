@@ -3,7 +3,7 @@ class GameData {
     public static nId : number ;
     public static roomId : number ;
     public static loverID : number;
-    public static ctTime : number = 3;
+    public static ctTime : number = 2;
     public static gameLevel : number ;
     public static teamMateName : string = 'XX'
     public static offX : number = 50;

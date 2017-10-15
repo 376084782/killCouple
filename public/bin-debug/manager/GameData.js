@@ -7,7 +7,7 @@ var GameData = (function () {
     return GameData;
 }());
 GameData.countDown = 0;
-GameData.ctTime = 3;
+GameData.ctTime = 2;
 GameData.teamMateName = 'XX';
 GameData.offX = 50;
 GameData.isAnswer = false;

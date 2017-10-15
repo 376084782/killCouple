@@ -29,11 +29,13 @@ var SceneHall = (function (_super) {
         this.addChild(this.hScore);
         //測試
         this.hScore.score = '156';
+        this.hScore.visible = false;
         this.hRank = new ScoreBar(1);
         this.hRank.x = 390;
         this.hRank.y = 6;
         this.addChild(this.hRank);
         this.hRank.score = '123456';
+        this.hRank.visible = false;
         this.hLogo = new Bitmap({
             source: 'pic_logo_png',
             width: 526,
@@ -64,10 +66,14 @@ var SceneHall = (function (_super) {
         var _this = this;
         //更新排名
         EventManager.sub('updataScore', function (oData) {
-            _this.hScore.score = oData.score;
-            _this.hRank.score = oData.rank;
-            GameData.oldScore = oData.score;
-            GameData.oldRank = oData.rank;
+            if (oData.score != null && oData.rank != null) {
+                _this.hScore.visible = true;
+                _this.hRank.visible = true;
+                _this.hScore.score = oData.score;
+                _this.hRank.score = oData.rank;
+                GameData.oldScore = oData.score;
+                GameData.oldRank = oData.rank;
+            }
         });
     };
     SceneHall.prototype.onLeave = function () {

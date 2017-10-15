@@ -84,7 +84,7 @@ var Connection = {
           ws.emit(10010, { id: GameData.nId, roomid: GameData.roomId });
           break;
         case "find":
-          ws.emit(10050, { id: GameData.nId, answer: oData.answer });
+          ws.emit(10050, { id: GameData.nId, answer: oData.answer, x: oData.x, y : oData.y });
           break;
         case "next":
           ws.emit(10070, { id: GameData.nId, roomid: GameData.roomId });
@@ -157,10 +157,10 @@ TikiGame.$(function(auth) {
       id = Math.floor(Math.random() * 1000);
       GameData.nId = id;
       GameData.roomId = 1;
-      Connection.initWS('ws://116.62.204.200:5555');
+      Connection.initWS('ws://localhost:5555');
     },0)
   }
 });
 
 // Connection.initWS('ws://116.62.204.200:5555');
-// Connection.initWS("ws://localhost:05");
+// Connection.initWS("ws://localhost:5555");

@@ -177,7 +177,8 @@ class UIManager {
     switch (type) {
       case 0: {
         this.animationModal = this.animationModal || new AnimationModal();
-        this.animationModal.ct321[2].visible = true;
+        // this.animationModal.ct321[2].visible = true;
+        this.animationModal.ct321[2].visible = false;
         this.animationModal.ct321[0].visible = false;
         this.animationModal.pBoy.x =360;
         this.animationModal.pGirl.x = 80;
@@ -228,6 +229,13 @@ class UIManager {
         this.sceneOver = this.sceneOver || new SceneOver();
         this.add(this.sceneOver)
         EventManager.pub('showLevel')
+
+			//返回闯关情况
+			let score : number = Math.ceil(GameData.gameLevel/5) * 5;
+			console.log('rtScore',score)
+			// let score = (GameData.gameLevel - 1) * 10;
+			EventManager.pub('returnScore',score);
+
         break;
       }
     }

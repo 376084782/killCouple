@@ -29,6 +29,7 @@ class SceneHall extends egret.DisplayObjectContainer{
 			this.addChild(this.hScore);
 			//測試
 			this.hScore.score = '156';
+			this.hScore.visible = false;
 			
 
 			this.hRank = new ScoreBar(1);
@@ -37,6 +38,7 @@ class SceneHall extends egret.DisplayObjectContainer{
 			this.addChild(this.hRank);
 
 			this.hRank.score = '123456';
+			this.hRank.visible = false;
 
 			this.hLogo = new Bitmap({
 				source:'pic_logo_png',
@@ -73,11 +75,19 @@ class SceneHall extends egret.DisplayObjectContainer{
 
 		//更新排名
 		EventManager.sub('updataScore',(oData)=>{
-			this.hScore.score = oData.score;
-			this.hRank.score = oData.rank;
 
-			GameData.oldScore = oData.score;
-			GameData.oldRank = oData.rank;
+			if(oData.score != null && oData.rank != null){
+
+				this.hScore.visible = true;
+				this.hRank.visible = true;
+
+				this.hScore.score = oData.score;
+				this.hRank.score = oData.rank;
+
+				GameData.oldScore = oData.score;
+				GameData.oldRank = oData.rank;
+			}
+
 		});
 
 	}

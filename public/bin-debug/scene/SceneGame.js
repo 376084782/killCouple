@@ -12,6 +12,7 @@ var SceneGame = (function (_super) {
         var _this = _super.call(this) || this;
         _this.bg = new egret.Bitmap(RES.getRes('public_bg2_png'));
         _this.peoples = [];
+        _this.time1s = new egret.Timer(1000, 1);
         _this.addChild(_this.bg);
         _this.findTip = new FindTip();
         _this.findTip.x = 20;
@@ -25,6 +26,7 @@ var SceneGame = (function (_super) {
         _this.timeTip.x = 440;
         _this.timeTip.y = 13;
         _this.addChild(_this.timeTip);
+        _this.timeTip.visible = false;
         _this.killTip = new KillTip();
         _this.killTip.x = (UIConfig.stageW - _this.killTip.width - 10);
         _this.killTip.y = 10;
@@ -37,8 +39,9 @@ var SceneGame = (function (_super) {
         _this.touchLayer.y = 64;
         _this.addChild(_this.touchLayer);
         _this.touchLayer.touchEnabled = true;
-        _this.touchLayer.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            EventManager.pub('sendMessage', { state: 'find', answer: -1 });
+        _this.touchLayer.addEventListener(egret.TouchEvent.TOUCH_TAP, function (evt) {
+            // console.log('点错：',evt.localX,evt.localY)
+            EventManager.pub('sendMessage', { state: 'find', answer: -1, x: evt.localX, y: evt.localY + 60 });
             // console.log("點錯")
         }, _this);
         _this.folkMap = new egret.Sprite();
@@ -52,6 +55,15 @@ var SceneGame = (function (_super) {
         });
         _this.pCir.width /= 2;
         _this.pCir.height /= 2;
+        _this.pX = new Bitmap({
+            source: 'pic_x_png',
+        });
+        _this.pX.width /= 2;
+        _this.pX.height /= 2;
+        _this.pX.anchorOffsetX = _this.pX.width / 2;
+        _this.pX.anchorOffsetY = _this.pX.height / 2;
+        _this.addChild(_this.pX);
+        _this.pX.visible = false;
         EventManager.sub('currentOff', function (level) {
             _this.killTip.level = level;
         });
@@ -89,6 +101,16 @@ var SceneGame = (function (_super) {
             _this.pCir.visible = true;
         });
         EventManager.sub('findFalse', function (data) {
+            _this.time1s.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                _this.pX.visible = false;
+                _this.timeTip.visible = false;
+            }, _this);
+            console.log(' data.x', data.x);
+            _this.pX.x = data.x;
+            _this.pX.y = data.y;
+            _this.pX.visible = true;
+            _this.timeTip.visible = true;
+            _this.time1s.start();
             //更新提示
             if (data.answerId == GameData.nId) {
                 //是自己答错

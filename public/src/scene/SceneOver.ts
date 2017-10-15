@@ -26,11 +26,14 @@ class SceneOver extends egret.DisplayObjectContainer{
 			this.addChild(this.oScore);
 			//測試
 			this.oScore.score = '123456';
+			this.oScore.visible = false;
 		
 			this.oRank = new ScoreBar(1);
 			this.oRank.x = 390;
 			this.oRank.y = 6;
 			this.addChild(this.oRank);
+
+			this.oRank.visible = false;
 
             this.oTitle = new TitleBar();
             this.oTitle.x = (UIConfig.stageW - this.oTitle.width)/2;
@@ -65,6 +68,12 @@ class SceneOver extends egret.DisplayObjectContainer{
 
 			//更新排名
 			EventManager.sub('updataScore',(oData)=>{
+
+			if(oData.score != null && oData.rank != null){
+
+				this.oScore.visible = true;
+				this.oRank.visible = true;
+
 				this.oScore.score = oData.score;
 				this.oRank.score = oData.rank;
 
@@ -76,12 +85,12 @@ class SceneOver extends egret.DisplayObjectContainer{
 
 				this.diffScore.score = diffScore;
 				this.diffRank.rank = diffRank;
+			}
+
 
 			});
 
-			//返回闯关情况
-			let score = (GameData.gameLevel - 1) * 10;
-			EventManager.pub('returnScore',score);
+
 
 
     }

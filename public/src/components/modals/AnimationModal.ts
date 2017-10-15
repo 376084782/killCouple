@@ -41,7 +41,7 @@ class AnimationModal extends ModalLayer{
         this.pGirl.y = (186-this.pGirl.height)/2;
         this.addChild(this.pGirl);
         
-        this.aniTimer = new egret.Timer(1000,GameData.ctTime);
+        this.aniTimer = new egret.Timer(1100,GameData.ctTime);
 
         EventManager.sub("startCT",()=>{
             this.start();
@@ -59,7 +59,7 @@ class AnimationModal extends ModalLayer{
     private start() {
         // this.aniTimer.repeatCount = 3;
         this.ctCount = GameData.ctTime;
-        this.aniTimer.addEventListener(egret.TimerEvent.TIMER, this.subTime, this);
+        // this.aniTimer.addEventListener(egret.TimerEvent.TIMER, this.subTime, this);
         this.aniTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timeOver, this);
         this.aniTimer.reset();
         this.aniTimer.start();

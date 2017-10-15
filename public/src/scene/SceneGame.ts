@@ -10,10 +10,15 @@ class SceneGame extends egret.DisplayObjectContainer{
     private peoples : Array<People> = [];
 
     private pCir : Bitmap;
+    private pX : Bitmap;
+
+    private time1s : egret.Timer;
 
 
     constructor(){
         super();
+
+        this.time1s = new egret.Timer(1000,1);
 
         this.addChild(this.bg);
         this.findTip = new FindTip();
@@ -30,6 +35,7 @@ class SceneGame extends egret.DisplayObjectContainer{
         this.timeTip.x = 440;
         this.timeTip.y = 13;
         this.addChild(this.timeTip);
+        this.timeTip.visible = false;
 
         this.killTip = new KillTip();
         this.killTip.x = (UIConfig.stageW - this.killTip.width - 10);
@@ -44,8 +50,10 @@ class SceneGame extends egret.DisplayObjectContainer{
         this.touchLayer.y = 64;
         this.addChild(this.touchLayer);
         this.touchLayer.touchEnabled = true;
-        this.touchLayer.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-            EventManager.pub('sendMessage',{state:'find',answer:-1})
+        this.touchLayer.addEventListener(egret.TouchEvent.TOUCH_TAP,(evt)=>{
+            // console.log('点错：',evt.localX,evt.localY)
+            EventManager.pub('sendMessage',{state:'find',answer:-1,x:evt.localX,y:evt.localY + 60})
+
             // console.log("點錯")
         },this)
 
@@ -61,6 +69,16 @@ class SceneGame extends egret.DisplayObjectContainer{
         })
         this.pCir.width /= 2;
         this.pCir.height /= 2;
+
+        this.pX =  new Bitmap({
+            source:'pic_x_png',
+        })
+        this.pX.width /= 2;
+        this.pX.height /= 2;
+        this.pX.anchorOffsetX = this.pX.width /2;
+        this.pX.anchorOffsetY = this.pX.height /2;
+        this.addChild(this.pX);
+        this.pX.visible = false;
 
         EventManager.sub('currentOff',(level)=>{
             this.killTip.level = level;
@@ -107,6 +125,23 @@ class SceneGame extends egret.DisplayObjectContainer{
         })
 
         EventManager.sub('findFalse',(data)=>{
+
+            this.time1s.addEventListener(egret.TimerEvent.TIMER_COMPLETE,()=>{
+                
+                this.pX.visible = false;
+                this.timeTip.visible = false;
+            },this);
+
+            console.log(' data.x', data.x)
+
+            this.pX.x = data.x;
+            this.pX.y = data.y;
+            this.pX.visible = true;
+            this.timeTip.visible = true;
+
+            this.time1s.start();
+
+
             //更新提示
             if(data.answerId == GameData.nId){
                 //是自己答错
