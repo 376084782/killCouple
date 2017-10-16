@@ -231,11 +231,12 @@ class UIManager {
         EventManager.pub('showLevel')
 
 			//返回闯关情况
-			let score : number = Math.ceil(GameData.gameLevel/5) * 5;
+			let score : number = Math.floor(GameData.gameLevel/5) * 5;
 			console.log('rtScore',score)
 			// let score = (GameData.gameLevel - 1) * 10;
+      EventManager.pub('showEva',score);
 			EventManager.pub('returnScore',score);
-
+      
         break;
       }
     }

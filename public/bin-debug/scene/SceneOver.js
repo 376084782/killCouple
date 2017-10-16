@@ -30,16 +30,18 @@ var SceneOver = (function (_super) {
         _this.oRank.visible = false;
         _this.oTitle = new TitleBar();
         _this.oTitle.x = (UIConfig.stageW - _this.oTitle.width) / 2;
-        _this.oTitle.y = 50;
+        _this.oTitle.y = 80;
         _this.addChild(_this.oTitle);
         _this.diffScore = new RankBar();
         _this.diffScore.x = 110;
         _this.diffScore.y = 265;
         _this.addChild(_this.diffScore);
+        _this.diffScore.visible = false;
         _this.diffRank = new RankBar();
         _this.diffRank.x = 370;
         _this.diffRank.y = 265;
         _this.addChild(_this.diffRank);
+        _this.diffRank.visible = false;
         _this.hBtn = new Button(0, 2);
         _this.hBtn.y = 335;
         _this.hBtn.x = (UIConfig.stageW - _this.hBtn.width) / 2;
@@ -49,15 +51,37 @@ var SceneOver = (function (_super) {
             if (_this.hBtn.Type == "btn_pic_hdsy_png")
                 UImanager.to('hall'); //回到首頁
         }, _this);
+        _this.eva = new Bitmap({
+            source: '',
+            y: 180
+        });
+        _this.addChild(_this.eva);
         EventManager.sub('showLevel', function () {
             // this.oTitle.score = `你和${GameData.teamMateName}搭档在120秒共计干掉了${GameData.gameLevel}对情侣`;
             _this.oTitle.score = "\u4F60\u548C\u642D\u6863\u5728120\u79D2\u5171\u8BA1\u5E72\u6389\u4E86" + GameData.gameLevel + "\u5BF9\u60C5\u4FA3";
+        });
+        EventManager.sub('showEva', function (score) {
+            if (score == 0) {
+                _this.eva.src = 'text_nmsbsx_png';
+            }
+            else if (score == 5) {
+                _this.eva.src = 'text_ybjc_png';
+            }
+            else if (score == 10) {
+                _this.eva.src = 'text_qlsmy_png';
+            }
+            else if (score >= 15) {
+                _this.eva.src = 'text_hyjj_png';
+            }
+            _this.eva.x = (UIConfig.stageW - _this.eva.width) / 2;
         });
         //更新排名
         EventManager.sub('updataScore', function (oData) {
             if (oData.score != null && oData.rank != null) {
                 _this.oScore.visible = true;
                 _this.oRank.visible = true;
+                _this.diffRank.visible = true;
+                _this.diffScore.visible = true;
                 _this.oScore.score = oData.score;
                 _this.oRank.score = oData.rank;
                 var diffScore = GameData.oldScore - oData.score;

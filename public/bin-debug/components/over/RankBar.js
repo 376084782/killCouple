@@ -47,7 +47,7 @@ var RankBar = (function (_super) {
                 this.rLogo.src = "pic_redjt_png";
             }
             else if (val < 0) {
-                this.rCont.text = "排名降下降" + val.toString() + "名";
+                this.rCont.text = "排名下降" + val.toString() + "名";
                 this.rLogo.src = "pic_bluejt_png";
             }
         },
