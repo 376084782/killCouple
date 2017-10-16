@@ -69,12 +69,12 @@ var Connection = {
       EventManager.pub("modal/onModalClose");
     });
     ws.on("12003", function() {
-      // alert("对方掉线！游戏无法继续");
+      alert("对方掉线！游戏无法继续");
       EventManager.pub("closeGame");
     });
     ws.on("disconnect", function() {
       //调用关闭游戏API
-      // alert("网络连接已断开，请重新登录~");
+      alert("网络连接已断开，请重新登录~");
       ws.close();
       EventManager.pub("closeGame");
     });
@@ -157,7 +157,7 @@ TikiGame.$(function(auth) {
       id = Math.floor(Math.random() * 1000);
       GameData.nId = id;
       GameData.roomId = 1;
-      Connection.initWS('ws://116.62.204.200:5555');
+      Connection.initWS('local:5555');
 
     },0)
   }
