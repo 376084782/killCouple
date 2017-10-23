@@ -41,7 +41,7 @@ class AnimationModal extends ModalLayer{
         this.pGirl.y = (186-this.pGirl.height)/2;
         this.addChild(this.pGirl);
         
-        this.aniTimer = new egret.Timer(1100,GameData.ctTime);
+        this.aniTimer = new egret.Timer(800,GameData.ctTime);
 
         EventManager.sub("startCT",()=>{
             this.start();
@@ -49,8 +49,8 @@ class AnimationModal extends ModalLayer{
             let girl = this.pGirl;
 
             //开始动画
-            egret.Tween.get(boy).to({ x: boy.x + GameData.offX }, 2000, egret.Ease.sineIn);
-            egret.Tween.get(girl).to({ x: girl.x - GameData.offX }, 2000, egret.Ease.sineIn);
+            egret.Tween.get(boy).to({ x: boy.x + GameData.offX }, 1500, egret.Ease.sineIn);
+            egret.Tween.get(girl).to({ x: girl.x - GameData.offX }, 1500, egret.Ease.sineIn);
         });  
 
     }

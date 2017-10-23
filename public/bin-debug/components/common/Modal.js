@@ -21,13 +21,13 @@ var Modal = (function (_super) {
         _this.modalBg.graphics.drawRect(0, 0, width, height);
         _this.modalBg.graphics.endFill();
         _this.addChild(_this.modalBg);
-        _this.cirBg = new Bitmap({
-            source: 'pic_djs_bg_png',
-        });
-        _this.cirBg.x = (width - _this.cirBg.width) / 2;
-        _this.cirBg.y = (height - _this.cirBg.height) / 2;
-        _this.addChild(_this.cirBg);
         return _this;
+        // this.cirBg = new Bitmap({
+        //     source: 'pic_djs_bg_png',       
+        // }) 
+        // this.cirBg.x = (width - this.cirBg.width)/2;
+        // this.cirBg.y = (height - this.cirBg.height)/2;
+        // this.addChild(this.cirBg);
     }
     return Modal;
 }(egret.DisplayObjectContainer));

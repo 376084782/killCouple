@@ -40,14 +40,14 @@ var AnimationModal = (function (_super) {
         });
         _this.pGirl.y = (186 - _this.pGirl.height) / 2;
         _this.addChild(_this.pGirl);
-        _this.aniTimer = new egret.Timer(1100, GameData.ctTime);
+        _this.aniTimer = new egret.Timer(800, GameData.ctTime);
         EventManager.sub("startCT", function () {
             _this.start();
             var boy = _this.pBoy;
             var girl = _this.pGirl;
             //开始动画
-            egret.Tween.get(boy).to({ x: boy.x + GameData.offX }, 2000, egret.Ease.sineIn);
-            egret.Tween.get(girl).to({ x: girl.x - GameData.offX }, 2000, egret.Ease.sineIn);
+            egret.Tween.get(boy).to({ x: boy.x + GameData.offX }, 1500, egret.Ease.sineIn);
+            egret.Tween.get(girl).to({ x: girl.x - GameData.offX }, 1500, egret.Ease.sineIn);
         });
         return _this;
     }

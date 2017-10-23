@@ -21,11 +21,11 @@ class Modal extends egret.DisplayObjectContainer{
         this.modalBg.graphics.endFill();
         this.addChild(this.modalBg);
 
-        this.cirBg = new Bitmap({
-            source: 'pic_djs_bg_png',       
-        }) 
-        this.cirBg.x = (width - this.cirBg.width)/2;
-        this.cirBg.y = (height - this.cirBg.height)/2;
-        this.addChild(this.cirBg);
+        // this.cirBg = new Bitmap({
+        //     source: 'pic_djs_bg_png',       
+        // }) 
+        // this.cirBg.x = (width - this.cirBg.width)/2;
+        // this.cirBg.y = (height - this.cirBg.height)/2;
+        // this.addChild(this.cirBg);
     }
 };
