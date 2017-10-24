@@ -2,31 +2,43 @@ var io = require("socket.io");
 var fs = require("fs");
 
 var service = require("./service/function");
-var express = require('express');
+var express = require("express");
 var app = express();
 var PROTOCOL = require("./service/protocol");
-var path = require('path');
+var path = require("path");
 
-var process = require('process')
+var process = require("process");
 
-var port = (function () {
-  if (typeof (process.argv[2]) !== 'undefined') { // 如果输入了端口号，则提取出来
-   if (isNaN(process.argv[2])) { // 如果端口号不为数字，提示格式错误
-    throw 'Please write a correct port number.'
-   } else { // 如果端口号输入正确，将其应用到端口
-    return process.argv[2]
-   }
-  } else { // 如果未输入端口号，则使用下面定义的默认端口
-   return 5555
+let configPort = require("./config/PORT");
+
+var port = (function() {
+  if (typeof process.argv[2] !== "undefined") {
+    // 如果输入了端口号，则提取出来
+    if (isNaN(process.argv[2])) {
+      // 如果端口号不为数字，提示格式错误
+      let portEnv = process.argv[2];
+      if (configPort[portEnv]) {
+        console.log(configPort[portEnv]);
+        return configPort[portEnv];
+      } else {
+        throw "环境错误";
+      }
+    } else {
+      // 如果端口号输入正确，将其应用到端口
+      return process.argv[2];
+    }
+  } else {
+    // 如果未输入端口号，则使用下面定义的默认端口
+    return 5555;
   }
- })()
+})();
 
 var roomList = {};
 var userList = {};
 
 var ws = io.listen(port);
 
-ws.on("connection", function (socket) {
+ws.on("connection", function(socket) {
   var userInfo = {};
   var roomInfo = {};
   var id = 0;

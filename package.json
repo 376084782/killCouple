@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app",
-    "main": "node app"
+    "dev": "node app 5555",
+    "prod":"node app 1111"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
