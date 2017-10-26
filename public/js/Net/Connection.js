@@ -69,14 +69,12 @@ var Connection = {
       EventManager.pub("modal/onModalClose");
     });
     ws.on("12003", function() {
-      alert("对方掉线！游戏无法继续");
-      EventManager.pub("closeGame");
+      EventManager.pub('modal/onShowModal',1,{text:'对方已断开连接，即将退出游戏...'})
     });
     ws.on("disconnect", function() {
       //调用关闭游戏API
-      alert("网络连接已断开，请重新登录~");
+      EventManager.pub('modal/onShowModal',1,{text:'您已断开连接，即将退出游戏...'})      
       ws.close();
-      EventManager.pub("closeGame");
     });
     EventManager.sub("sendMessage", oData => {
       switch (oData.state) {

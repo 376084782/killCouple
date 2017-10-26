@@ -33,16 +33,7 @@ class UIManager {
   // 初始化弹层场景 ,index 50
   private currentModal: any;
   private animationModal : AnimationModal;
-  // private modalSysError: ModalSysError;
-  // private modalHelp: ModalHelp;
-  // private modalTip: ModalTip;
-  // private modalMatchTimeout: ModalMatchTimeOut;
-  // private modalSign: ModalSign;
-  // private modalSignSuccess: ModalSignSuccess;
-  // private modalInfo: ModalInfo;
-  // private modalPay: ModalPay;
-  // private modalNoMoney: ModalNoMoney;
-  // private modalOverTop: ModalOverTop;
+  private modalOffline: OfflineModal;
 
   // // 简单提示 10
   // private simpleTip: TipSimple;
@@ -70,8 +61,8 @@ class UIManager {
   fListen() {
     let self = this;
 
-    EventManager.sub('modal/onShowModal', function (modalType) {
-      self.showModal(modalType);
+    EventManager.sub('modal/onShowModal', function (modalType,obj={}) {
+      self.showModal(modalType,obj);
     })    
 
     EventManager.sub('modal/onModalClose', () => {
@@ -186,7 +177,10 @@ class UIManager {
         break;
       }
       case 1: {
-
+        this.modalOffline = this.modalOffline || new OfflineModal();
+        console.log(args)
+        this.modalOffline.spText.text=args['text'];
+        modal = this.modalOffline;
         break;
       }
       case 2: {
