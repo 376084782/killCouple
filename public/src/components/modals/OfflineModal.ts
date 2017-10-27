@@ -36,7 +36,7 @@ class OfflineModal extends egret.DisplayObjectContainer {
     btn.touchEnabled = true;
     btn.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
       EventManager.pub("closeGame");
-      EventManager.pub('modal/onModalClose')
+      EventManager.pub('modal/onCloseOffline')
     }, this);
 
   }

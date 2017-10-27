@@ -38,7 +38,7 @@ var OfflineModal = (function (_super) {
         btn.touchEnabled = true;
         btn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             EventManager.pub("closeGame");
-            EventManager.pub('modal/onModalClose');
+            EventManager.pub('modal/onCloseOffline');
         }, _this);
         return _this;
     }

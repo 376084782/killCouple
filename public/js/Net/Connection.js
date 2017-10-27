@@ -69,11 +69,11 @@ var Connection = {
       EventManager.pub("modal/onModalClose");
     });
     ws.on("12003", function() {
-      EventManager.pub('modal/onShowModal',1,{text:'对方已断开连接，即将退出游戏...'})
+      EventManager.pub('modal/onShowOffline',{text:'对方已断开连接，即将退出游戏...'})
     });
     ws.on("disconnect", function() {
       //调用关闭游戏API
-      EventManager.pub('modal/onShowModal',1,{text:'您已断开连接，即将退出游戏...'})      
+      EventManager.pub('modal/onShowOffline',{text:'您已断开连接，即将退出游戏...'})      
       ws.close();
     });
     EventManager.sub("sendMessage", oData => {

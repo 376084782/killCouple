@@ -13,7 +13,7 @@ interface NormalScene extends egret.DisplayObjectContainer {
   onEnter?: () => void  //每次进入场景前调用
   onLeave?: () => void
   onResize?: () => void
-  noAutoResize?:boolean
+  noAutoResize?: boolean
 }
 
 class UIManager {
@@ -32,7 +32,7 @@ class UIManager {
 
   // 初始化弹层场景 ,index 50
   private currentModal: any;
-  private animationModal : AnimationModal;
+  private animationModal: AnimationModal;
   private modalOffline: OfflineModal;
 
   // // 简单提示 10
@@ -44,26 +44,13 @@ class UIManager {
 
   constructor(layer) {
     this.setContainer(layer)
-    // EventManager.sub('syncUserInfo', () => {
-    //   // 存储商城列表
-    //   Util.Ajax({
-    //     url: '/goods',
-    //     type: 'get',
-    //     data: {
-    //       token: GameDataManager['fGetToken']()
-    //     },
-    //     success(data) {
-    //       ShopList.list = data;
-    //     }
-    //   })
-    // })
   }
   fListen() {
     let self = this;
 
-    EventManager.sub('modal/onShowModal', function (modalType,obj={}) {
-      self.showModal(modalType,obj);
-    })    
+    EventManager.sub('modal/onShowModal', function (modalType, obj = {}) {
+      self.showModal(modalType, obj);
+    })
 
     EventManager.sub('modal/onModalClose', () => {
       if (this.currentModal) {
@@ -80,6 +67,19 @@ class UIManager {
         }
       }
     })
+
+    EventManager.sub('modal/onCloseOffline', () => {
+      if (this.modalOffline && this.modalOffline.parent) {
+        this.container.removeChild(this.modalOffline);
+      }
+    })
+
+    EventManager.sub('modal/onShowOffline', (obj = {}) => {
+      this.modalOffline = this.modalOffline || new OfflineModal();
+      this.modalOffline.spText.text = obj['text'];
+      this.container.addChildAt(this.modalOffline, 50);
+    })
+
   }
 
   setContainer(layer) {
@@ -109,7 +109,7 @@ class UIManager {
     this.container.height = UIConfig.stageH
     // 重排场景
     if (this.currentScene) {
-      if(this.currentScene.noAutoResize) {
+      if (this.currentScene.noAutoResize) {
         this.currentScene.onResize();
         return;
       }
@@ -127,9 +127,9 @@ class UIManager {
         this.currentScene.bg.height = this.container.height
       }
     }
-    console.log('stage.stageHeight',stage.stageHeight);
-    console.log('UIConfig.height',UIConfig.height)
-    console.log('offsetH',UIConfig.offsetH)
+    console.log('stage.stageHeight', stage.stageHeight);
+    console.log('UIConfig.height', UIConfig.height)
+    console.log('offsetH', UIConfig.offsetH)
     UIConfig.offsetW = (stage.stageWidth - UIConfig.width) / 2
     UIConfig.offsetH = (stage.stageHeight - UIConfig.height) / 2
   }
@@ -143,27 +143,9 @@ class UIManager {
       scoreTips: '1231',
       mult: [1, 2, 3, 4, 5]
     }
-    // this.sceneResult = this.sceneResult || new GameResult();
-    // this.sceneResult.reset(obj);
-    // this.container.addChildAt(this.sceneResult, 20);
-    // egret.Tween.get(this.sceneResult).set({ alpha: 0 }).to({ alpha: 1 }, 400);
   }
-  // hideResult() {
-  //   if (this.container.contains(this.sceneResult)) {
-  //     this.container.removeChild(this.sceneResult);
-  //   }
-  // }
-  // showLoading() {
-  //   this.loadingLayer = this.loadingLayer || new LoadingLayer();
-  //   this.container.addChildAt(this.loadingLayer, 100);
-  // }
-  // hideLoading() {
-  //   if (this.container.contains(this.loadingLayer)) {
-  //     this.container.removeChild(this.loadingLayer);
-  //   }
-  // }
   showModal(type, args = {}) {
-  //   // 0个人信息,1设置
+    //   // 0个人信息,1设置
     let modal: ModalLayer;
     switch (type) {
       case 0: {
@@ -171,16 +153,12 @@ class UIManager {
         // this.animationModal.ct321[2].visible = true;
         this.animationModal.ct321[2].visible = false;
         this.animationModal.ct321[0].visible = false;
-        this.animationModal.pBoy.x =360;
+        this.animationModal.pBoy.x = 360;
         this.animationModal.pGirl.x = 80;
         modal = this.animationModal;
         break;
       }
       case 1: {
-        this.modalOffline = this.modalOffline || new OfflineModal();
-        console.log(args)
-        this.modalOffline.spText.text=args['text'];
-        modal = this.modalOffline;
         break;
       }
       case 2: {
@@ -204,7 +182,7 @@ class UIManager {
       console.warn('modal类型未定义')
     }
   }
-  
+
   async to(name) {
     // 清除所有已打开弹窗
     // EventManager.pub('modal/onModalClose');
@@ -224,13 +202,13 @@ class UIManager {
         this.add(this.sceneOver)
         EventManager.pub('showLevel')
 
-			//返回闯关情况
-			let score : number = Math.floor(GameData.gameLevel/5) * 5;
-			console.log('rtScore',score)
-			// let score = (GameData.gameLevel - 1) * 10;
-      EventManager.pub('showEva',score);
-			EventManager.pub('returnScore',score);
-      
+        //返回闯关情况
+        let score: number = Math.floor(GameData.gameLevel / 5) * 5;
+        console.log('rtScore', score)
+        // let score = (GameData.gameLevel - 1) * 10;
+        EventManager.pub('showEva', score);
+        EventManager.pub('returnScore', score);
+
         break;
       }
     }
