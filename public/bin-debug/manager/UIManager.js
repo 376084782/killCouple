@@ -50,16 +50,6 @@ UIConfig.offsetW = 0; //(舞台宽度-设计稿宽度)/2
 UIConfig.offsetH = 0; //(舞台高度-设计稿高度)/2
 __reflect(UIConfig.prototype, "UIConfig");
 var UIManager = (function () {
-    // private modalSysError: ModalSysError;
-    // private modalHelp: ModalHelp;
-    // private modalTip: ModalTip;
-    // private modalMatchTimeout: ModalMatchTimeOut;
-    // private modalSign: ModalSign;
-    // private modalSignSuccess: ModalSignSuccess;
-    // private modalInfo: ModalInfo;
-    // private modalPay: ModalPay;
-    // private modalNoMoney: ModalNoMoney;
-    // private modalOverTop: ModalOverTop;
     // // 简单提示 10
     // private simpleTip: TipSimple;
     // loading层 ，index最高 100
@@ -84,8 +74,9 @@ var UIManager = (function () {
     UIManager.prototype.fListen = function () {
         var _this = this;
         var self = this;
-        EventManager.sub('modal/onShowModal', function (modalType) {
-            self.showModal(modalType);
+        EventManager.sub('modal/onShowModal', function (modalType, obj) {
+            if (obj === void 0) { obj = {}; }
+            self.showModal(modalType, obj);
         });
         EventManager.sub('modal/onModalClose', function () {
             if (_this.currentModal) {
@@ -197,6 +188,10 @@ var UIManager = (function () {
                 break;
             }
             case 1: {
+                this.modalOffline = this.modalOffline || new OfflineModal();
+                console.log(args);
+                this.modalOffline.spText.text = args['text'];
+                modal = this.modalOffline;
                 break;
             }
             case 2: {

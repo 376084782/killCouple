@@ -11,7 +11,7 @@ var game_file_list = [
 	"js/EventManager/EventManager.js",
 	"js/Net/Connection.js?v=4",
 	"bin-debug/components/common/ModalLayer.js",
-	"bin-debug/scene/SceneOver.js",
+	"bin-debug/components/game/TimeTip.js",
 	"bin-debug/components/common/Button.js",
 	"bin-debug/components/common/ImageLoader.js",
 	"bin-debug/components/common/LoadingLayer.js",
@@ -23,9 +23,10 @@ var game_file_list = [
 	"bin-debug/components/game/FindTip.js",
 	"bin-debug/components/game/KillTip.js",
 	"bin-debug/components/game/People.js",
-	"bin-debug/components/game/TimeTip.js",
+	"bin-debug/components/common/BitmapText.js",
 	"bin-debug/components/hall/ScoreBar.js",
 	"bin-debug/components/modals/AnimationModal.js",
+	"bin-debug/components/modals/OfflineModal.js",
 	"bin-debug/components/over/RankBar.js",
 	"bin-debug/components/over/TitleBar.js",
 	"bin-debug/LoadingUI.js",
@@ -34,7 +35,7 @@ var game_file_list = [
 	"bin-debug/manager/UIManager.js",
 	"bin-debug/scene/SceneGame.js",
 	"bin-debug/scene/SceneHall.js",
-	"bin-debug/components/common/BitmapText.js",
+	"bin-debug/scene/SceneOver.js",
 	//----auto game_file_list end----
 ];
 
