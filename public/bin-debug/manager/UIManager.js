@@ -50,16 +50,6 @@ UIConfig.offsetW = 0; //(舞台宽度-设计稿宽度)/2
 UIConfig.offsetH = 0; //(舞台高度-设计稿高度)/2
 __reflect(UIConfig.prototype, "UIConfig");
 var UIManager = (function () {
-    // private modalSysError: ModalSysError;
-    // private modalHelp: ModalHelp;
-    // private modalTip: ModalTip;
-    // private modalMatchTimeout: ModalMatchTimeOut;
-    // private modalSign: ModalSign;
-    // private modalSignSuccess: ModalSignSuccess;
-    // private modalInfo: ModalInfo;
-    // private modalPay: ModalPay;
-    // private modalNoMoney: ModalNoMoney;
-    // private modalOverTop: ModalOverTop;
     // // 简单提示 10
     // private simpleTip: TipSimple;
     // loading层 ，index最高 100
@@ -67,25 +57,13 @@ var UIManager = (function () {
     function UIManager(layer) {
         this.info = {};
         this.setContainer(layer);
-        // EventManager.sub('syncUserInfo', () => {
-        //   // 存储商城列表
-        //   Util.Ajax({
-        //     url: '/goods',
-        //     type: 'get',
-        //     data: {
-        //       token: GameDataManager['fGetToken']()
-        //     },
-        //     success(data) {
-        //       ShopList.list = data;
-        //     }
-        //   })
-        // })
     }
     UIManager.prototype.fListen = function () {
         var _this = this;
         var self = this;
-        EventManager.sub('modal/onShowModal', function (modalType) {
-            self.showModal(modalType);
+        EventManager.sub('modal/onShowModal', function (modalType, obj) {
+            if (obj === void 0) { obj = {}; }
+            self.showModal(modalType, obj);
         });
         EventManager.sub('modal/onModalClose', function () {
             if (_this.currentModal) {
@@ -102,6 +80,17 @@ var UIManager = (function () {
                     _this.currentModal = undefined;
                 }
             }
+        });
+        EventManager.sub('modal/onCloseOffline', function () {
+            if (_this.modalOffline && _this.modalOffline.parent) {
+                _this.container.removeChild(_this.modalOffline);
+            }
+        });
+        EventManager.sub('modal/onShowOffline', function (obj) {
+            if (obj === void 0) { obj = {}; }
+            _this.modalOffline = _this.modalOffline || new OfflineModal();
+            _this.modalOffline.spText.text = obj['text'];
+            _this.container.addChildAt(_this.modalOffline, 50);
         });
     };
     UIManager.prototype.setContainer = function (layer) {
@@ -162,25 +151,7 @@ var UIManager = (function () {
             scoreTips: '1231',
             mult: [1, 2, 3, 4, 5]
         };
-        // this.sceneResult = this.sceneResult || new GameResult();
-        // this.sceneResult.reset(obj);
-        // this.container.addChildAt(this.sceneResult, 20);
-        // egret.Tween.get(this.sceneResult).set({ alpha: 0 }).to({ alpha: 1 }, 400);
     };
-    // hideResult() {
-    //   if (this.container.contains(this.sceneResult)) {
-    //     this.container.removeChild(this.sceneResult);
-    //   }
-    // }
-    // showLoading() {
-    //   this.loadingLayer = this.loadingLayer || new LoadingLayer();
-    //   this.container.addChildAt(this.loadingLayer, 100);
-    // }
-    // hideLoading() {
-    //   if (this.container.contains(this.loadingLayer)) {
-    //     this.container.removeChild(this.loadingLayer);
-    //   }
-    // }
     UIManager.prototype.showModal = function (type, args) {
         if (args === void 0) { args = {}; }
         //   // 0个人信息,1设置

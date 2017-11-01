@@ -79,7 +79,7 @@ function createGameData() {
     stopping: false, //计时器开关控制器
     missReduce,
     lastAnswerId: 0,
-    finishCallback() { },
+    finishCallback() {},
     sendAnswer(id, answer) {
       this.lastAnswerId = id;
       // return -1错误 0一个正确 1两个正确，下一关
@@ -157,7 +157,13 @@ let ratio = width / height;
 let picR = picW / picH;
 let base = 15;
 let min = 6;
-let step = .8;
+let step = 0.8;
+function RandomNumBoth(Min, Max) {
+  var Range = Max - Min;
+  var Rand = Math.random();
+  var num = Min + Math.round(Rand * Range); //四舍五入
+  return num;
+}
 
 function getData(level) {
   var pixel = base - step * level;
@@ -166,7 +172,9 @@ function getData(level) {
   var maxY = Math.ceil(maxX * picR / ratio);
   var data = [];
   let Nx = (Ny = 0);
-  let answer = Math.ceil(Math.random() * (maxY * maxX)) - 1;
+  let randomX = RandomNumBoth(1, maxX - 2);
+  let randomY = RandomNumBoth(1, maxY - 2);
+  let answer = randomX + randomY * maxX;
   for (let n = 0; n < maxY; n++) {
     for (let m = 0; m < maxX; m++) {
       Nx = jumpN * m + randomNumber();
@@ -178,7 +186,7 @@ function getData(level) {
         if (n < maxY - 1) {
           Ny += (Math.random() - 0.5) * jumpN / 3;
         } else {
-          Ny -= (Math.random() / 2) * jumpN / 3;
+          Ny -= Math.random() / 2 * jumpN / 3;
         }
       }
       let pic;
@@ -189,7 +197,9 @@ function getData(level) {
         pic = randomType();
         isRotate = Math.random() < 0.5 ? 0 : 1;
       }
-      data.push(`${Nx * pixel},${Ny * pixel * jumpN / picR},${pic},${isRotate}`);
+      data.push(
+        `${Nx * pixel},${Ny * pixel * jumpN / picR},${pic},${isRotate}`
+      );
     }
   }
   return { map: data, answer: answer };
