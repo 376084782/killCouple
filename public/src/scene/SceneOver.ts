@@ -69,9 +69,10 @@ class SceneOver extends egret.DisplayObjectContainer{
 			this.eva = new Bitmap(
 				{
 					source:'',
-					y:180
+					y:95
 				}
 			)
+			this.eva.scaleX = this.eva.scaleY = 0.6;
 			this.addChild(this.eva);
 
 
@@ -90,7 +91,7 @@ class SceneOver extends egret.DisplayObjectContainer{
 			  }else if(score >= 15){
 					this.eva.src= 'text_hyjj_png';
 			  }
-			  this.eva.x = (UIConfig.stageW - this.eva.width)/2;
+			  this.eva.x = (UIConfig.stageW - 0.6 * this.eva.width)/2;
 			  });
 
 

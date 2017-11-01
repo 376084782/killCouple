@@ -53,8 +53,9 @@ var SceneOver = (function (_super) {
         }, _this);
         _this.eva = new Bitmap({
             source: '',
-            y: 180
+            y: 95
         });
+        _this.eva.scaleX = _this.eva.scaleY = 0.6;
         _this.addChild(_this.eva);
         EventManager.sub('showLevel', function () {
             // this.oTitle.score = `你和${GameData.teamMateName}搭档在120秒共计干掉了${GameData.gameLevel}对情侣`;
@@ -73,7 +74,7 @@ var SceneOver = (function (_super) {
             else if (score >= 15) {
                 _this.eva.src = 'text_hyjj_png';
             }
-            _this.eva.x = (UIConfig.stageW - _this.eva.width) / 2;
+            _this.eva.x = (UIConfig.stageW - 0.6 * _this.eva.width) / 2;
         });
         //更新排名
         EventManager.sub('updataScore', function (oData) {

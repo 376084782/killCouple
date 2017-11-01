@@ -157,7 +157,7 @@ TikiGame.$(function(auth) {
       id = Math.floor(Math.random() * 1000);
       GameData.nId = id;
       GameData.roomId = 1;
-      Connection.initWS('local:5555');
+      Connection.initWS('ws://localhost:5555');
 
     },0)
   }

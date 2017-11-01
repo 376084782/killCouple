@@ -17,9 +17,9 @@ class TitleBar extends egret.DisplayObjectContainer{
             this.sCont = new TextField({
                 fontFamily:'YouYuan',
                 text: '你和XX搭档在120秒共计干掉了XX对情侣',
-                color: 0xffffff,
+                color: 0xa6490e,
                 x:50,
-                y:10,
+                y:100,
                 size: 28,
                 width: 560,
                 height:50,

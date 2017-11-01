@@ -126,6 +126,7 @@ var SceneGame = (function (_super) {
         EventManager.sub('findTrue', function (data) {
             if (data.answerId == GameData.nId) {
                 //是自己答对
+                _this.findTip.visible = true;
                 _this.findTip.cont = GameData.fCopy[1];
                 EventManager.pub('openRedCir');
                 //关闭触控
@@ -139,6 +140,7 @@ var SceneGame = (function (_super) {
                     _this.findTip.cont = GameData.fCopy[3];
                 }
                 else if (!GameData.isAnswer) {
+                    _this.findTip.visible = true;
                     _this.findTip.cont = GameData.fCopy[2];
                     GameData.isAnswer = true;
                 }
@@ -150,6 +152,9 @@ var SceneGame = (function (_super) {
         EventManager.sub('storeLevel', function (level) {
             GameData.gameLevel = level;
         });
+        EventManager.sub('hideFindTip', function () {
+            _this.findTip.visible = false;
+        });
         return _this;
     }
     SceneGame.prototype.resetAll = function () {
@@ -159,6 +164,7 @@ var SceneGame = (function (_super) {
         this.findTip.cont = GameData.fCopy[0];
         this.timeTip.cont = GameData.tCopy[0];
         GameData.isAnswer = false;
+        this.findTip.visible = false;
     };
     return SceneGame;
 }(egret.DisplayObjectContainer));

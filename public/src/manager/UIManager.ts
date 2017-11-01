@@ -183,6 +183,7 @@ class UIManager {
         this.animationModal.pBoy.x =360;
         this.animationModal.pGirl.x = 80;
         modal = this.animationModal;
+        EventManager.pub('hideFindTip');
         break;
       }
       case 1: {

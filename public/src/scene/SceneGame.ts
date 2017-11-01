@@ -156,6 +156,7 @@ class SceneGame extends egret.DisplayObjectContainer{
         EventManager.sub('findTrue',(data)=>{
             if(data.answerId == GameData.nId){
                 //是自己答对
+                this.findTip.visible = true;
                 this.findTip.cont = GameData.fCopy[1];
                 EventManager.pub('openRedCir')
                 //关闭触控
@@ -167,6 +168,7 @@ class SceneGame extends egret.DisplayObjectContainer{
                 if(GameData.isAnswer){
                     this.findTip.cont = GameData.fCopy[3];
                 }else if(!GameData.isAnswer){
+                    this.findTip.visible = true;
                     this.findTip.cont = GameData.fCopy[2];
                     GameData.isAnswer = true;
                 }
@@ -180,6 +182,10 @@ class SceneGame extends egret.DisplayObjectContainer{
             GameData.gameLevel = level;
         })
 
+        EventManager.sub('hideFindTip',()=>{
+            this.findTip.visible = false;
+        })
+
     }
 
     private resetAll(){
@@ -189,6 +195,8 @@ class SceneGame extends egret.DisplayObjectContainer{
          this.findTip.cont = GameData.fCopy[0];
          this.timeTip.cont = GameData.tCopy[0];
          GameData.isAnswer = false;
+
+        this.findTip.visible = false;
 
     }
 
